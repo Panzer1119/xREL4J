@@ -20,13 +20,15 @@ package com.github.saftsau.xrel4j.extinfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.saftsau.xrel4j.release.p2p.P2pRelease;
 import com.github.saftsau.xrel4j.release.scene.Release;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Class represents an ExtInfo, used for all information xREL has about any product (movie, game,
  * ...).
  */
-public class ExtInfo {
+public class ExtInfo implements Serializable {
 
   private String type;
   private String id;

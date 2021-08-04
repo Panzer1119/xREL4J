@@ -19,11 +19,13 @@ package com.github.saftsau.xrel4j.extinfo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
+
 /**
  * Class represents media an {@link ExtInfo} can contain. Used for adding images (hosted on xREL)
  * and videos (hosted on YouTube).
  */
-public class ExtInfoMedia {
+public class ExtInfoMedia implements Serializable {
 
   private String type;
   private String description;

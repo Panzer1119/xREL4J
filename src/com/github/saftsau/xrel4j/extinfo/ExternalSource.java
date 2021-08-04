@@ -17,10 +17,12 @@
 
 package com.github.saftsau.xrel4j.extinfo;
 
+import java.io.Serializable;
+
 /**
  * Class represents an external source used on {@link External}.
  */
-public class ExternalSource {
+public class ExternalSource implements Serializable {
 
   private long id;
   private String name;

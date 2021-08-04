@@ -17,13 +17,14 @@
 
 package com.github.saftsau.xrel4j.extinfo;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Class represents an object containing a lists of {@link ExtInfo}. This is used for
  * {@link ExtInfo} search operations on the xREL API.
  */
-public class ExtInfoSearchResult {
+public class ExtInfoSearchResult implements Serializable {
 
   private int total;
   private List<ExtInfo> results;

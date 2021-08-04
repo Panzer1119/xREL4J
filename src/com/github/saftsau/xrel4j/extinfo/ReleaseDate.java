@@ -21,12 +21,14 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  * Class represents a release date an {@link ExtInfo} can contain.
  */
-public class ReleaseDate {
+public class ReleaseDate implements Serializable {
 
   private String type;
   @JsonDeserialize(using = LocalDateDeserializer.class)  

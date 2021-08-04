@@ -19,11 +19,13 @@ package com.github.saftsau.xrel4j.extinfo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
+
 /**
  * Class represents external info an {@link ExtInfo} can contain. Used for adding plots from other
  * websites.
  */
-public class External {
+public class External implements Serializable {
 
   private ExternalSource source;
   @JsonProperty("link_url")
