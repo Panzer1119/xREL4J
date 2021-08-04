@@ -3,12 +3,12 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.github.saftsau</groupId>
+  <groupId>de.codemakers</groupId>
   <artifactId>xREL4J</artifactId>
   <version>1.2.1</version>
   <name>xREL4J</name>
   <description>Open source Java library for simple usage of the xREL API.</description>
-  <url>https://github.com/saftsau/xREL4J</url>
+  <url>https://github.com/Panzer1119/xREL4J</url>
 
   <licenses>
     <license>
@@ -21,6 +21,9 @@
     <developer>
       <name>saftsau</name>
     </developer>
+    <developer>
+      <name>Panzer1119</name>
+    </developer>
   </developers>
 
   <distributionManagement>
@@ -31,9 +34,9 @@
   </distributionManagement>
 
   <scm>
-    <connection>scm:git:git://github.com/saftsau/xREL4J.git</connection>
-    <developerConnection>scm:git:ssh://github.com:saftsau/xREL4J.git</developerConnection>
-    <url>http://github.com/saftsau/xREL4J/tree/master</url>
+    <connection>scm:git:git://github.com/Panzer1119/xREL4J.git</connection>
+    <developerConnection>scm:git:ssh://github.com:Panzer1119/xREL4J.git</developerConnection>
+    <url>http://github.com/Panzer1119/xREL4J/tree/master</url>
   </scm>
 
   <properties>
