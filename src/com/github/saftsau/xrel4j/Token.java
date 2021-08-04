@@ -19,11 +19,13 @@ package com.github.saftsau.xrel4j;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
+
 /**
  * Class represents a Token used by the xREL API to access protected methods or additional user
  * data.
  */
-public class Token {
+public class Token implements Serializable {
 
   @JsonProperty("access_token")
   private String accessToken;

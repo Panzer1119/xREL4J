@@ -19,12 +19,14 @@ package com.github.saftsau.xrel4j;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.io.Serializable;
 import java.util.Map;
 
 /**
  * Class represents a category as used in the Release section on xREL.
  */
-public class ReleaseCategory {
+public class ReleaseCategory implements Serializable {
 
   private String name;
   @JsonIgnore

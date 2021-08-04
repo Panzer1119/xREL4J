@@ -19,11 +19,13 @@ package com.github.saftsau.xrel4j;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
+
 /**
  * Class represents a user as returned by the xREL API. This is implemented using a singleton
  * pattern.
  */
-public class User {
+public class User implements Serializable {
 
   private String id;
   private String name;

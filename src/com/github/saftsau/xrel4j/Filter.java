@@ -17,10 +17,12 @@
 
 package com.github.saftsau.xrel4j;
 
+import java.io.Serializable;
+
 /**
  * Class represents a filter, which can be used to customize the getLatestRelease() method.
  */
-public class Filter {
+public class Filter implements Serializable {
 
   private long id;
   private String name;

@@ -19,10 +19,12 @@ package com.github.saftsau.xrel4j;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
+
 /**
  * Class used for any other classes that use pagination in their results.
  */
-public class Pagination {
+public class Pagination implements Serializable {
 
   @JsonProperty("current_page")
   private int currentPage;

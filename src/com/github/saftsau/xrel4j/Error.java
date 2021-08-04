@@ -19,12 +19,14 @@ package com.github.saftsau.xrel4j;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
+
 /**
  * Class represents an Error. Used for all information the xREL API offers when returning errors.
  * 
  * @see <a href="https://www.xrel.to/wiki/6435/api-errors.html">API: Error Handling</a>
  */
-public class Error {
+public class Error implements Serializable {
 
   public String error;
   @JsonProperty("error_description")

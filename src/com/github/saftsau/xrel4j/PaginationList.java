@@ -18,6 +18,8 @@
 package com.github.saftsau.xrel4j;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -25,7 +27,7 @@ import java.util.List;
  * 
  * @param <T> The type of the content of this list
  */
-public class PaginationList<T> {
+public class PaginationList<T> implements Serializable {
 
   @JsonProperty("total_count")
   private long totalCount;
