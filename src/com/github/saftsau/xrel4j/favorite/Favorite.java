@@ -20,12 +20,14 @@ package com.github.saftsau.xrel4j.favorite;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.saftsau.xrel4j.extinfo.ExtInfo;
 import com.github.saftsau.xrel4j.release.p2p.P2pRelease;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Class represents a Favorite list by the currently logged in user.
  */
-public class Favorite {
+public class Favorite implements Serializable {
 
   private long id;
   private String name;

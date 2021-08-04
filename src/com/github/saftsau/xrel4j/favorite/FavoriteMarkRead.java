@@ -19,10 +19,12 @@ package com.github.saftsau.xrel4j.favorite;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
+
 /**
  * Class represents the Response you get when marking an entry as read.
  */
-public class FavoriteMarkRead {
+public class FavoriteMarkRead implements Serializable {
 
   @JsonProperty(value = "fav_list")
   private Favorite favList;
