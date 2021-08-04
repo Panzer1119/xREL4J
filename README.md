@@ -25,7 +25,7 @@ Setup
 
 - Alternatively download an already built release from Maven Central Repository:
 
-    https://mvnrepository.com/artifact/de.codemakers/xREL4J
+    https://mvnrepository.com/artifact/com.github.panzer1119/xREL4J
 
 - Add xREL4J and your chosen implementation libraries to your project.
 
