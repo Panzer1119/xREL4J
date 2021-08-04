@@ -17,10 +17,12 @@
 
 package com.github.saftsau.xrel4j.comment;
 
+import java.io.Serializable;
+
 /**
  * Class used to represent votes used on {@link Comment}.
  */
-public class Votes {
+public class Votes implements Serializable {
 
   private int positive;
   private int negative;

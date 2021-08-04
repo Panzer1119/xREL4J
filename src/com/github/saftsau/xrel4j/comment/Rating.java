@@ -17,10 +17,12 @@
 
 package com.github.saftsau.xrel4j.comment;
 
+import java.io.Serializable;
+
 /**
  * Class used to represent ratings used on {@link Comment}.
  */
-public class Rating {
+public class Rating implements Serializable {
 
   private int video;
   private int audio;

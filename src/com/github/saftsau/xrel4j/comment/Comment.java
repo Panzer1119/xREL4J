@@ -21,10 +21,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.saftsau.xrel4j.release.p2p.P2pRelease;
 import com.github.saftsau.xrel4j.release.scene.Release;
 
+import java.io.Serializable;
+
 /**
  * Class represents a comment on any {@link Release} or {@link P2pRelease}.
  */
-public class Comment {
+public class Comment implements Serializable {
 
   private String id;
   private long time;

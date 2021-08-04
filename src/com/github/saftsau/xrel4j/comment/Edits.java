@@ -17,10 +17,12 @@
 
 package com.github.saftsau.xrel4j.comment;
 
+import java.io.Serializable;
+
 /**
  * Class used to represent edits used on {@link Comment}.
  */
-public class Edits {
+public class Edits implements Serializable {
 
   private int count;
   private long last;

@@ -18,10 +18,12 @@
 package com.github.saftsau.xrel4j.comment;
 
 
+import java.io.Serializable;
+
 /**
  * Class used to represent authors used on {@link Comment}.
  */
-public class Author {
+public class Author implements Serializable {
 
   private String id;
   private String name;
