@@ -21,11 +21,11 @@ Setup
 
 - Get yourself a snapshot from this repository:
 
-    git clone https://github.com/saftsau/xREL4J.git
+    git clone https://github.com/Panzer1119/xREL4J.git
 
 - Alternatively download an already built release from Maven Central Repository:
 
-    https://mvnrepository.com/artifact/com.github.saftsau/xREL4J
+    https://mvnrepository.com/artifact/de.codemakers/xREL4J
 
 - Add xREL4J and your chosen implementation libraries to your project.
 
