@@ -19,10 +19,12 @@ package com.github.saftsau.xrel4j.release;
 
 import com.github.saftsau.xrel4j.release.scene.Release;
 
+import java.io.Serializable;
+
 /**
  * Class represents a size as used in {@link Release} objects.
  */
-public class Size {
+public class Size implements Serializable {
 
   private int number;
   private String unit;

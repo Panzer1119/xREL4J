@@ -18,12 +18,14 @@
 package com.github.saftsau.xrel4j.release.scene;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Class represents a proof. This is retrieved partially by the xREL API after the user posted one.
  */
-public class Proof {
+public class Proof implements Serializable {
 
   @JsonProperty("proof_url")
   private String proofUrl;

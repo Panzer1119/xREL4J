@@ -20,10 +20,12 @@ package com.github.saftsau.xrel4j.release.p2p;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.saftsau.xrel4j.release.ReleaseBase;
 
+import java.io.Serializable;
+
 /**
  * Class represents a P2P release with all its information provided by the xREL API.
  */
-public class P2pRelease extends ReleaseBase {
+public class P2pRelease extends ReleaseBase implements Serializable {
 
   private P2pCategory category;
   @JsonProperty("main_lang")

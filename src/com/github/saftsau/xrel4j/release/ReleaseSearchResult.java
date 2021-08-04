@@ -20,6 +20,8 @@ package com.github.saftsau.xrel4j.release;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.saftsau.xrel4j.release.p2p.P2pRelease;
 import com.github.saftsau.xrel4j.release.scene.Release;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -27,7 +29,7 @@ import java.util.List;
  * is used for {@link Release} / {@link P2pRelease} search operations on the xREL API, which can
  * return both types.
  */
-public class ReleaseSearchResult {
+public class ReleaseSearchResult implements Serializable {
 
   private int total;
   private List<Release> results;

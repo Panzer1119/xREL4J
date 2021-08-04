@@ -19,6 +19,8 @@ package com.github.saftsau.xrel4j.release.scene;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.saftsau.xrel4j.Xrel;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -26,7 +28,7 @@ import java.util.List;
  * {@link Xrel#postReleaseAddProof(List, String, com.github.saftsau.xrel4j.Token)} result as
  * provided by the xREL API.
  */
-public class ReleaseAddProof {
+public class ReleaseAddProof implements Serializable {
 
   @JsonProperty("proof_url")
   private String proofUrl;

@@ -22,11 +22,13 @@ import com.github.saftsau.xrel4j.extinfo.ExtInfo;
 import com.github.saftsau.xrel4j.release.p2p.P2pRelease;
 import com.github.saftsau.xrel4j.release.scene.Release;
 
+import java.io.Serializable;
+
 /**
  * Class represents a base release which contains information shared by {@link Release} and
  * {@link P2pRelease}. This is used as the parent class of these two classes.
  */
-public abstract class ReleaseBase {
+public abstract class ReleaseBase implements Serializable {
 
   private String id;
   private String dirname;

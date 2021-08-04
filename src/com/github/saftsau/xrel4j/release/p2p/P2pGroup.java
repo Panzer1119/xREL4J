@@ -17,10 +17,12 @@
 
 package com.github.saftsau.xrel4j.release.p2p;
 
+import java.io.Serializable;
+
 /**
  * Class represents a group as used in the P2P section on xREL.
  */
-public class P2pGroup {
+public class P2pGroup implements Serializable {
 
   private String id;
   private String name;

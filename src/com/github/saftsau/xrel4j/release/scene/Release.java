@@ -20,11 +20,13 @@ package com.github.saftsau.xrel4j.release.scene;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.saftsau.xrel4j.release.ReleaseBase;
 import com.github.saftsau.xrel4j.release.Size;
+
+import java.io.Serializable;
 import java.util.Map;
 /**
  * Class represents a release with all its information provided by the xREL API.
  */
-public class Release extends ReleaseBase {
+public class Release extends ReleaseBase implements Serializable {
 
   private long time;
   @JsonProperty("group_name")

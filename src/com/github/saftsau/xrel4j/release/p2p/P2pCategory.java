@@ -19,10 +19,12 @@ package com.github.saftsau.xrel4j.release.p2p;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
+
 /**
  * Class represents a category as used in the P2P section on xREL.
  */
-public class P2pCategory {
+public class P2pCategory implements Serializable {
 
   @JsonProperty("meta_cat")
   private String metaCat;
