@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.2](https://github.com/Panzer1119/xREL4J/compare/v1.2.1...v1.2.2) (2021-08-05)
+
+
+### Bug Fixes
+
+* replace groupId with com.github.panzer1119 ([0d4e775](https://github.com/Panzer1119/xREL4J/commit/0d4e775b6c9ae420dd0e393e1cc7b50ac3f4ff0e))
+
 ### [1.2.1](https://github.com/Panzer1119/xREL4J/compare/v1.2.0...v1.2.1) (2021-08-04)
 
 
