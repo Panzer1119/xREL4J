@@ -1,0 +1,18 @@
+{
+  "packageFiles": [
+    {
+      "filename": "build.gradle",
+      "type": "gradle"
+    }
+  ],
+  "bumpFiles": [
+    {
+      "filename": "build.gradle",
+      "type": "gradle"
+    },
+    {
+      "filename": "sonar-project.properties",
+      "updater": "sonar-version-updater.js"
+    }
+  ]
+}
