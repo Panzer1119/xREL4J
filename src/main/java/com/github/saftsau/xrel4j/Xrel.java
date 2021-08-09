@@ -1645,7 +1645,7 @@ public class Xrel {
         if (delete) {
             call = restClient.getXrelService().favsListDelEntry(token.createBearerHeader(), favorite.getId(), extInfo.getId());
         } else {
-            call = restClient.getXrelService().favsListDelEntry(token.createBearerHeader(), favorite.getId(), extInfo.getId());
+            call = restClient.getXrelService().favsListAddEntry(token.createBearerHeader(), favorite.getId(), extInfo.getId());
         }
         Response<FavoriteAddDelEntry> response = null;
         try {
