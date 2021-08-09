@@ -27,7 +27,7 @@ import java.util.List;
  * 
  * @param <T> The type of the content of this list
  */
-public class PaginationList<T> implements Serializable {
+public class PaginationList<T extends Serializable> implements Serializable {
 
   @JsonProperty("total_count")
   private long totalCount;
