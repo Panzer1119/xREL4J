@@ -27,8 +27,9 @@ import java.io.Serializable;
  * @see <a href="https://www.xrel.to/wiki/6435/api-errors.html">API: Error Handling</a>
  */
 public class Error implements Serializable {
-
-  public String error;
+  
+  @JsonProperty("error")
+  public String errorName;
   @JsonProperty("error_description")
   public String errorDescription;
   @JsonProperty("error_type")
@@ -40,7 +41,7 @@ public class Error implements Serializable {
    * @return The error
    */
   public String getError() {
-    return error;
+    return errorName;
   }
 
   /**
@@ -67,7 +68,7 @@ public class Error implements Serializable {
    * @param error The error to set
    */
   public void setError(String error) {
-    this.error = error;
+    this.errorName = error;
   }
 
   /**
