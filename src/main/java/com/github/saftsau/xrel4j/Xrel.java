@@ -395,7 +395,7 @@ public class Xrel {
      * @throws XrelException If there is an error returned by the xREL API
      * @see <a href="https://www.xrel.to/wiki/1680/api-release-info.html">API: release/info method</a>
      */
-    private Release getReleaseInfo(String idDir, boolean useId) throws XrelException {
+    private Release getReleaseInfo(String idDir, boolean useId) {
         Objects.requireNonNull(idDir, "idDir missing");
         final XrelService xrelService = restClient.getXrelService();
         final Call<Release> call;
@@ -423,7 +423,7 @@ public class Xrel {
      * @throws XrelException If there is an error returned by the xREL API
      * @see <a href="https://www.xrel.to/wiki/1680/api-release-info.html">API: release/info method</a>
      */
-    public Release getReleaseInfoDir(String dir) throws XrelException {
+    public Release getReleaseInfoDir(String dir) {
         Objects.requireNonNull(dir, "dir missing");
         
         return getReleaseInfo(dir, false);
@@ -439,7 +439,7 @@ public class Xrel {
      * @throws XrelException If there is an error returned by the xREL API
      * @see <a href="https://www.xrel.to/wiki/1680/api-release-info.html">API: release/info method</a>
      */
-    public Release getReleaseInfoId(String id) throws XrelException {
+    public Release getReleaseInfoId(String id) {
         Objects.requireNonNull(id, "id missing");
         
         return getReleaseInfo(id, true);
@@ -463,7 +463,7 @@ public class Xrel {
      * @see <a href="https://www.xrel.to/wiki/2994/api-release-latest.html">API: release/latest
      * method</a>
      */
-    public PaginationList<Release> getReleaseLatestPrivate(String archive, int perPage, int page, Filter filter, Token token) throws XrelException {
+    public PaginationList<Release> getReleaseLatestPrivate(String archive, int perPage, int page, Filter filter, Token token) {
         int[] normalizedPageValues = normalizePageValues(perPage, page);
         
         String filterParam = null;
@@ -503,7 +503,7 @@ public class Xrel {
      * @see <a href="https://www.xrel.to/wiki/2994/api-release-latest.html">API: release/latest
      * method</a>
      */
-    public PaginationList<Release> getReleaseLatest(int perPage, int page) throws XrelException {
+    public PaginationList<Release> getReleaseLatest(int perPage, int page) {
         return getReleaseLatestPrivate(null, perPage, page, null, null);
     }
     
@@ -522,7 +522,7 @@ public class Xrel {
      * @see <a href="https://www.xrel.to/wiki/2994/api-release-latest.html">API: release/latest
      * method</a>
      */
-    public PaginationList<Release> getReleaseLatest(String archive, int perPage, int page) throws XrelException {
+    public PaginationList<Release> getReleaseLatest(String archive, int perPage, int page) {
         Objects.requireNonNull(archive, "archive missing");
         
         return getReleaseLatestPrivate(archive, perPage, page, null, null);
@@ -543,7 +543,7 @@ public class Xrel {
      * @see <a href="https://www.xrel.to/wiki/2994/api-release-latest.html">API: release/latest
      * method</a>
      */
-    public PaginationList<Release> getReleaseLatest(int perPage, int page, Filter filter) throws XrelException {
+    public PaginationList<Release> getReleaseLatest(int perPage, int page, Filter filter) {
         Objects.requireNonNull(filter, "filter missing");
         
         return getReleaseLatestPrivate(null, perPage, page, filter, null);
@@ -565,7 +565,7 @@ public class Xrel {
      * @see <a href="https://www.xrel.to/wiki/2994/api-release-latest.html">API: release/latest
      * method</a>
      */
-    public PaginationList<Release> getReleaseLatest(String archive, int perPage, int page, Filter filter) throws XrelException {
+    public PaginationList<Release> getReleaseLatest(String archive, int perPage, int page, Filter filter) {
         Objects.requireNonNull(archive, "archive missing");
         Objects.requireNonNull(filter, "filter missing");
         
@@ -587,7 +587,7 @@ public class Xrel {
      * @see <a href="https://www.xrel.to/wiki/2994/api-release-latest.html">API: release/latest
      * method</a>
      */
-    public PaginationList<Release> getReleaseLatest(int perPage, int page, Token token) throws XrelException {
+    public PaginationList<Release> getReleaseLatest(int perPage, int page, Token token) {
         Objects.requireNonNull(token, "token missing");
         
         return getReleaseLatestPrivate(null, perPage, page, null, token);
@@ -609,7 +609,7 @@ public class Xrel {
      * @see <a href="https://www.xrel.to/wiki/2994/api-release-latest.html">API: release/latest
      * method</a>
      */
-    public PaginationList<Release> getReleaseLatest(String archive, int perPage, int page, Token token) throws XrelException {
+    public PaginationList<Release> getReleaseLatest(String archive, int perPage, int page, Token token) {
         Objects.requireNonNull(archive, "archive missing");
         Objects.requireNonNull(token, "token missing");
         
@@ -634,7 +634,7 @@ public class Xrel {
      * @see <a href="https://www.xrel.to/wiki/2994/api-release-latest.html">API: release/latest
      * method</a>
      */
-    public PaginationList<Release> getReleaseLatest(String archive, int perPage, int page, Filter filter, Token token) throws XrelException {
+    public PaginationList<Release> getReleaseLatest(String archive, int perPage, int page, Filter filter, Token token) {
         Objects.requireNonNull(archive, "archive missing");
         Objects.requireNonNull(filter, "filter missing");
         Objects.requireNonNull(token, "token missing");
@@ -653,7 +653,7 @@ public class Xrel {
      * @see <a href="https://www.xrel.to/wiki/6318/api-release-categories.html">API:
      * release/categories method</a>
      */
-    public Set<ReleaseCategory> getReleaseCategories() throws XrelException {
+    public Set<ReleaseCategory> getReleaseCategories() {
         Call<Set<ReleaseCategory>> call = restClient.getXrelService().releaseCategories();
         final Response<Set<ReleaseCategory>> response;
         try {
@@ -692,7 +692,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/3751/api-release-browse-category.html">API:
      * release/browse_category method</a>
      */
-    private PaginationList<Release> getReleaseBrowseCategoryPrivate(ReleaseCategory category, String extInfoType, int perPage, int page) throws XrelException {
+    private PaginationList<Release> getReleaseBrowseCategoryPrivate(ReleaseCategory category, String extInfoType, int perPage, int page) {
         int[] normalizedPageValues = normalizePageValues(perPage, page);
         Call<PaginationList<Release>> call = restClient.getXrelService()
                 .releaseBrowseCategory(category.getName(), extInfoType, normalizedPageValues[0], normalizedPageValues[1]);
@@ -718,7 +718,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/3751/api-release-browse-category.html">API:
      * release/browse_category method</a>
      */
-    public PaginationList<Release> getReleaseBrowseCategory(ReleaseCategory category, int perPage, int page) throws XrelException {
+    public PaginationList<Release> getReleaseBrowseCategory(ReleaseCategory category, int perPage, int page) {
         return getReleaseBrowseCategoryPrivate(category, null, perPage, page);
     }
     
@@ -737,7 +737,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/3751/api-release-browse-category.html">API:
      * release/browse_category method</a>
      */
-    public PaginationList<Release> getReleaseBrowseCategory(ReleaseCategory category, String extInfoType, int perPage, int page) throws XrelException {
+    public PaginationList<Release> getReleaseBrowseCategory(ReleaseCategory category, String extInfoType, int perPage, int page) {
         Objects.requireNonNull(category, "category missing");
         Objects.requireNonNull(extInfoType, "extInfoType missing");
         
@@ -755,7 +755,7 @@ public class Xrel {
      *
      * @throws XrelException If there is an error returned by the xREL API
      */
-    public PaginationList<Release> getReleaseExtInfo(ExtInfo extInfo, int perPage, int page) throws XrelException {
+    public PaginationList<Release> getReleaseExtInfo(ExtInfo extInfo, int perPage, int page) {
         Objects.requireNonNull(extInfo, "extInfo missing");
         final int[] normalizedPageValues = normalizePageValues(perPage, page);
         Call<PaginationList<Release>> call = restClient.getXrelService()
@@ -780,7 +780,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/2996/api-release-filters.html">API: release/filters
      * method</a>
      */
-    public Set<Filter> getReleaseFilters() throws XrelException {
+    public Set<Filter> getReleaseFilters() {
         Call<Set<Filter>> call = restClient.getXrelService().releaseFilters();
         final Response<Set<Filter>> response;
         try {
@@ -806,7 +806,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6444/api-release-addproof.html">API: release/addproof
      * method</a>
      */
-    public ReleaseAddProof postReleaseAddProof(List<Release> releaseList, String image, Token token) throws XrelException {
+    public ReleaseAddProof postReleaseAddProof(List<Release> releaseList, String image, Token token) {
         Objects.requireNonNull(releaseList, "releaseList missing");
         Objects.requireNonNull(image, "image missing");
         Objects.requireNonNull(token, "token missing");
@@ -843,7 +843,7 @@ public class Xrel {
      * @throws XrelException If there is an error returned by the xREL API
      * @see <a href= "https://www.xrel.to/wiki/3699/api-p2p-releases.html">API: p2p/releases</a>
      */
-    private PaginationList<P2pRelease> getP2pReleasesPrivate(int perPage, int page, P2pCategory p2pCategory, P2pGroup p2pGroup, ExtInfo extInfo) throws XrelException {
+    private PaginationList<P2pRelease> getP2pReleasesPrivate(int perPage, int page, P2pCategory p2pCategory, P2pGroup p2pGroup, ExtInfo extInfo) {
         int[] normalizedPageValues = normalizePageValues(perPage, page);
         
         String categoryId = null;
@@ -882,7 +882,7 @@ public class Xrel {
      * @throws XrelException If there is an error returned by the xREL API
      * @see <a href= "https://www.xrel.to/wiki/3699/api-p2p-releases.html">API: p2p/releases</a>
      */
-    public PaginationList<P2pRelease> getP2pReleases(int perPage, int page) throws XrelException {
+    public PaginationList<P2pRelease> getP2pReleases(int perPage, int page) {
         return getP2pReleasesPrivate(perPage, page, null, null, null);
     }
     
@@ -900,7 +900,7 @@ public class Xrel {
      * @throws XrelException If there is an error returned by the xREL API
      * @see <a href= "https://www.xrel.to/wiki/3699/api-p2p-releases.html">API: p2p/releases</a>
      */
-    public PaginationList<P2pRelease> getP2pReleases(int perPage, int page, P2pCategory p2pCategory) throws XrelException {
+    public PaginationList<P2pRelease> getP2pReleases(int perPage, int page, P2pCategory p2pCategory) {
         Objects.requireNonNull(p2pCategory, "p2pCategory missing");
         
         return getP2pReleasesPrivate(perPage, page, p2pCategory, null, null);
@@ -921,7 +921,7 @@ public class Xrel {
      * @throws XrelException If there is an error returned by the xREL API
      * @see <a href= "https://www.xrel.to/wiki/3699/api-p2p-releases.html">API: p2p/releases</a>
      */
-    public PaginationList<P2pRelease> getP2pReleases(int perPage, int page, P2pCategory p2pCategory, P2pGroup p2pGroup) throws XrelException {
+    public PaginationList<P2pRelease> getP2pReleases(int perPage, int page, P2pCategory p2pCategory, P2pGroup p2pGroup) {
         Objects.requireNonNull(p2pCategory, "p2pCategory missing");
         Objects.requireNonNull(p2pGroup, "p2pGroup missing");
         
@@ -942,7 +942,7 @@ public class Xrel {
      * @throws XrelException If there is an error returned by the xREL API
      * @see <a href= "https://www.xrel.to/wiki/3699/api-p2p-releases.html">API: p2p/releases</a>
      */
-    public PaginationList<P2pRelease> getP2pReleases(int perPage, int page, P2pGroup p2pGroup) throws XrelException {
+    public PaginationList<P2pRelease> getP2pReleases(int perPage, int page, P2pGroup p2pGroup) {
         Objects.requireNonNull(p2pGroup, "p2pGroup missing");
         
         return getP2pReleasesPrivate(perPage, page, null, p2pGroup, null);
@@ -963,7 +963,7 @@ public class Xrel {
      * @throws XrelException If there is an error returned by the xREL API
      * @see <a href= "https://www.xrel.to/wiki/3699/api-p2p-releases.html">API: p2p/releases</a>
      */
-    public PaginationList<P2pRelease> getP2pReleases(int perPage, int page, P2pGroup p2pGroup, ExtInfo extInfo) throws XrelException {
+    public PaginationList<P2pRelease> getP2pReleases(int perPage, int page, P2pGroup p2pGroup, ExtInfo extInfo) {
         Objects.requireNonNull(p2pGroup, "p2pGroup missing");
         Objects.requireNonNull(extInfo, "extInfo missing");
         
@@ -984,7 +984,7 @@ public class Xrel {
      * @throws XrelException If there is an error returned by the xREL API
      * @see <a href= "https://www.xrel.to/wiki/3699/api-p2p-releases.html">API: p2p/releases</a>
      */
-    public PaginationList<P2pRelease> getP2pReleases(int perPage, int page, ExtInfo extInfo) throws XrelException {
+    public PaginationList<P2pRelease> getP2pReleases(int perPage, int page, ExtInfo extInfo) {
         Objects.requireNonNull(extInfo, "extInfo missing");
         
         return getP2pReleasesPrivate(perPage, page, null, null, extInfo);
@@ -1006,7 +1006,7 @@ public class Xrel {
      * @throws XrelException If there is an error returned by the xREL API
      * @see <a href= "https://www.xrel.to/wiki/3699/api-p2p-releases.html">API: p2p/releases</a>
      */
-    public PaginationList<P2pRelease> getP2pReleases(int perPage, int page, P2pCategory p2pCategory, P2pGroup p2pGroup, ExtInfo extInfo) throws XrelException {
+    public PaginationList<P2pRelease> getP2pReleases(int perPage, int page, P2pCategory p2pCategory, P2pGroup p2pGroup, ExtInfo extInfo) {
         Objects.requireNonNull(p2pCategory, "p2pCategory missing");
         Objects.requireNonNull(p2pGroup, "p2pGroup missing");
         Objects.requireNonNull(extInfo, "extInfo missing");
@@ -1023,7 +1023,7 @@ public class Xrel {
      * @throws XrelException If there is an error returned by the xREL API
      * @see <a href= "https://www.xrel.to/wiki/3698/api-p2p-categories.html">API: p2p/categories</a>
      */
-    public Set<P2pCategory> getP2pCategories() throws XrelException {
+    public Set<P2pCategory> getP2pCategories() {
         Call<Set<P2pCategory>> call = restClient.getXrelService().p2pCategories();
         final Response<Set<P2pCategory>> response;
         try {
@@ -1047,7 +1047,7 @@ public class Xrel {
      * @throws XrelException If there is an error returned by the xREL API
      * @see <a href= "https://www.xrel.to/wiki/3697/api-p2p-rls-info.html">API: p2p/rls_info</a>
      */
-    private P2pRelease getP2pRlsInfo(String idDir, boolean useId) throws XrelException {
+    private P2pRelease getP2pRlsInfo(String idDir, boolean useId) {
         Objects.requireNonNull(idDir, "idDir missing");
         final Call<P2pRelease> call;
         if (useId) {
@@ -1074,7 +1074,7 @@ public class Xrel {
      * @throws XrelException If there is an error returned by the xREL API
      * @see <a href= "https://www.xrel.to/wiki/3697/api-p2p-rls-info.html">API: p2p/rls_info</a>
      */
-    public P2pRelease getP2pRlsInfoDir(String dir) throws XrelException {
+    public P2pRelease getP2pRlsInfoDir(String dir) {
         Objects.requireNonNull(dir, "dir missing");
         
         return getP2pRlsInfo(dir, false);
@@ -1090,7 +1090,7 @@ public class Xrel {
      * @throws XrelException If there is an error returned by the xREL API
      * @see <a href= "https://www.xrel.to/wiki/3697/api-p2p-rls-info.html">API: p2p/rls_info</a>
      */
-    public P2pRelease getP2pRlsInfoId(String id) throws XrelException {
+    public P2pRelease getP2pRlsInfoId(String id) {
         Objects.requireNonNull(id, "id missing");
         
         return getP2pRlsInfo(id, true);
@@ -1107,7 +1107,7 @@ public class Xrel {
      * @throws XrelException If there is an error returned by the xREL API
      * @see <a href= "https://www.xrel.to/wiki/6438/api-nfo-release.html">API: nfo/release method</a>
      */
-    public byte[] getNfoRelease(Release release, Token token) throws XrelException {
+    public byte[] getNfoRelease(Release release, Token token) {
         Objects.requireNonNull(release, "release missing");
         Objects.requireNonNull(token, "token missing");
         if (getScope().isEmpty() || denyScope("viewnfo")) {
@@ -1135,7 +1135,7 @@ public class Xrel {
      * @throws XrelException If there is an error returned by the xREL API
      * @see <a href= "https://www.xrel.to/wiki/6437/api-nfo-p2p-rls.html">API: nfo/p2p_rls method</a>
      */
-    public byte[] getNfoP2pRls(P2pRelease p2pRelease, Token token) throws XrelException {
+    public byte[] getNfoP2pRls(P2pRelease p2pRelease, Token token) {
         Objects.requireNonNull(p2pRelease, "p2pRelease missing");
         Objects.requireNonNull(token, "token missing");
         if (getScope().isEmpty() || denyScope("viewnfo")) {
@@ -1161,7 +1161,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/1827/api-calendar-upcoming.html">API: calendar/upcoming
      * method</a>
      */
-    public List<ExtInfo> getCalendarUpcoming(String country) throws XrelException {
+    public List<ExtInfo> getCalendarUpcoming(String country) {
         Objects.requireNonNull(country, "country missing");
         if (!country.equals("de") && !country.equals("us")) {
             throw new XrelException("country must be either de or us");
@@ -1189,7 +1189,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/2725/api-ext-info-info.html">API: ext_info/info
      * method</a>
      */
-    private ExtInfo getExtInfoInfoPrivate(ExtInfo extInfo, Token token) throws XrelException {
+    private ExtInfo getExtInfoInfoPrivate(ExtInfo extInfo, Token token) {
         Objects.requireNonNull(extInfo, "extInfo missing");
         String authorization = null;
         if (token != null) {
@@ -1216,7 +1216,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/2725/api-ext-info-info.html">API: ext_info/info
      * method</a>
      */
-    public ExtInfo getExtInfoInfo(ExtInfo extInfo) throws XrelException {
+    public ExtInfo getExtInfoInfo(ExtInfo extInfo) {
         Objects.requireNonNull(extInfo, "extInfo missing");
         
         return getExtInfoInfoPrivate(extInfo, null);
@@ -1235,7 +1235,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/2725/api-ext-info-info.html">API: ext_info/info
      * method</a>
      */
-    public ExtInfo getExtInfoInfo(ExtInfo extInfo, Token token) throws XrelException {
+    public ExtInfo getExtInfoInfo(ExtInfo extInfo, Token token) {
         Objects.requireNonNull(extInfo, "extInfo missing");
         Objects.requireNonNull(token, "token missing");
         
@@ -1252,7 +1252,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6314/api-ext-info-media.html">API: ext_info/media
      * method</a>
      */
-    public void getExtInfoMedia(ExtInfo extInfo) throws XrelException {
+    public void getExtInfoMedia(ExtInfo extInfo) {
         Objects.requireNonNull(extInfo, "extInfo missing");
         final Call<List<ExtInfoMedia>> call = restClient.getXrelService().extInfoMedia(extInfo.getId());
         final Response<List<ExtInfoMedia>> response;
@@ -1286,7 +1286,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6315/api-ext-info-rate.html">API: ext_info/rate
      * method</a>
      */
-    public void postExtInfoRate(ExtInfo extInfo, int rating, Token token) throws XrelException {
+    public void postExtInfoRate(ExtInfo extInfo, int rating, Token token) {
         Objects.requireNonNull(extInfo, "extInfo missing");
         Objects.requireNonNull(token, "token missing");
         if (rating < 1 || rating > 10) {
@@ -1322,7 +1322,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6320/api-search-releases.html">API: search/releases
      * method</a>
      */
-    private ReleaseSearchResult getSearchReleasesPrivate(String q, boolean scene, boolean p2p, Integer limit) throws XrelException {
+    private ReleaseSearchResult getSearchReleasesPrivate(String q, boolean scene, boolean p2p, Integer limit) {
         Objects.requireNonNull(q, "q missing");
         if ((!p2p) && (!scene)) {
             throw new XrelException("either scene or p2p must be set to true");
@@ -1356,7 +1356,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6320/api-search-releases.html">API: search/releases
      * method</a>
      */
-    public ReleaseSearchResult getSearchReleases(String q, boolean scene, boolean p2p, int limit) throws XrelException {
+    public ReleaseSearchResult getSearchReleases(String q, boolean scene, boolean p2p, int limit) {
         Objects.requireNonNull(q, "q missing");
         
         if ((!p2p) && (!scene)) {
@@ -1385,7 +1385,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6320/api-search-releases.html">API: search/releases
      * method</a>
      */
-    public ReleaseSearchResult getSearchReleases(String q, boolean scene, boolean p2p) throws XrelException {
+    public ReleaseSearchResult getSearchReleases(String q, boolean scene, boolean p2p) {
         Objects.requireNonNull(q, "q missing");
         
         if ((!p2p) && (!scene)) {
@@ -1411,7 +1411,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6319/api-search-ext-info.html">API: search/ext_info
      * method</a>
      */
-    private ExtInfoSearchResult getSearchExtInfoPrivate(String q, String type, Integer limit) throws XrelException {
+    private ExtInfoSearchResult getSearchExtInfoPrivate(String q, String type, Integer limit) {
         Objects.requireNonNull(q, "q missing");
         if (limit != null && limit < 1) {
             throw new XrelException("limit must be either -1 or greater than 1");
@@ -1439,7 +1439,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6319/api-search-ext-info.html">API: search/ext_info
      * method</a>
      */
-    public ExtInfoSearchResult getSearchExtInfo(String q) throws XrelException {
+    public ExtInfoSearchResult getSearchExtInfo(String q) {
         Objects.requireNonNull(q, "q missing");
         
         return getSearchExtInfoPrivate(q, null, null);
@@ -1459,7 +1459,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6319/api-search-ext-info.html">API: search/ext_info
      * method</a>
      */
-    public ExtInfoSearchResult getSearchExtInfo(String q, int limit) throws XrelException {
+    public ExtInfoSearchResult getSearchExtInfo(String q, int limit) {
         Objects.requireNonNull(q, "q missing");
         
         if (limit < 1) {
@@ -1484,7 +1484,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6319/api-search-ext-info.html">API: search/ext_info
      * method</a>
      */
-    public ExtInfoSearchResult getSearchExtInfo(String q, String type) throws XrelException {
+    public ExtInfoSearchResult getSearchExtInfo(String q, String type) {
         Objects.requireNonNull(q, "q missing");
         Objects.requireNonNull(type, "type missing");
         
@@ -1507,7 +1507,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6319/api-search-ext-info.html">API: search/ext_info
      * method</a>
      */
-    public ExtInfoSearchResult getSearchExtInfo(String q, String type, int limit) throws XrelException {
+    public ExtInfoSearchResult getSearchExtInfo(String q, String type, int limit) {
         Objects.requireNonNull(q, "q missing");
         Objects.requireNonNull(type, "type missing");
         
@@ -1528,7 +1528,7 @@ public class Xrel {
      * @throws XrelException If there is an error returned by the xREL API
      * @see <a href= "https://www.xrel.to/wiki/1754/api-favs-lists.html">API: favs/lists method</a>
      */
-    public List<Favorite> getFavsLists(Token token) throws XrelException {
+    public List<Favorite> getFavsLists(Token token) {
         Objects.requireNonNull(token, "token missing");
         final Call<List<Favorite>> call = restClient.getXrelService().favsLists(token.createBearerHeader());
         final Response<List<Favorite>> response;
@@ -1553,7 +1553,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/1823/api-favs-list-entries.html">API: favs/list_entries
      * method</a>
      */
-    public void getFavsListEntries(Favorite favorite, boolean getReleases, Token token) throws XrelException {
+    public void getFavsListEntries(Favorite favorite, boolean getReleases, Token token) {
         Objects.requireNonNull(favorite, "favorite missing");
         Objects.requireNonNull(token, "token missing");
         final Call<List<ExtInfo>> call = restClient.getXrelService().favsListEntries(token.createBearerHeader(), favorite.getId(), getReleases);
@@ -1592,7 +1592,7 @@ public class Xrel {
      * <a href= "https://www.xrel.to/wiki/6317/api-favs-list-delentry.html">API:
      * favs/list_delentry method</a>
      */
-    private FavoriteAddDelEntry postFavsListAddDelEntry(Favorite favorite, ExtInfo extInfo, Token token, boolean delete) throws XrelException {
+    private FavoriteAddDelEntry postFavsListAddDelEntry(Favorite favorite, ExtInfo extInfo, Token token, boolean delete) {
         Objects.requireNonNull(favorite, "favorite missing");
         Objects.requireNonNull(extInfo, "extInfo missing");
         Objects.requireNonNull(token, "token missing");
@@ -1624,7 +1624,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6316/api-favs-list-addentry.html">API:
      * favs/list_addentry method</a>
      */
-    public FavoriteAddDelEntry postFavsListAddEntry(Favorite favorite, ExtInfo extInfo, Token token) throws XrelException {
+    public FavoriteAddDelEntry postFavsListAddEntry(Favorite favorite, ExtInfo extInfo, Token token) {
         Objects.requireNonNull(favorite, "favorite missing");
         Objects.requireNonNull(extInfo, "extInfo missing");
         Objects.requireNonNull(token, "token missing");
@@ -1645,7 +1645,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6317/api-favs-list-delentry.html">API:
      * favs/list_delentry method</a>
      */
-    public FavoriteAddDelEntry postFavsListDelEntry(Favorite favorite, ExtInfo extInfo, Token token) throws XrelException {
+    public FavoriteAddDelEntry postFavsListDelEntry(Favorite favorite, ExtInfo extInfo, Token token) {
         Objects.requireNonNull(favorite, "favorite missing");
         Objects.requireNonNull(extInfo, "extInfo missing");
         Objects.requireNonNull(token, "token missing");
@@ -1667,7 +1667,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6344/api-favs-list-markread.html">API:
      * favs/list_markread method</a>
      */
-    private FavoriteMarkRead postFavsListMarkRead(Favorite favorite, Release release, P2pRelease p2pRelease, Token token) throws XrelException {
+    private FavoriteMarkRead postFavsListMarkRead(Favorite favorite, Release release, P2pRelease p2pRelease, Token token) {
         Objects.requireNonNull(favorite, "favorite missing");
         Objects.requireNonNull(token, "token missing");
         String releaseId;
@@ -1703,7 +1703,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6344/api-favs-list-markread.html">API:
      * favs/list_markread method</a>
      */
-    public FavoriteMarkRead postFavsListMarkRead(Favorite favorite, Release release, Token token) throws XrelException {
+    public FavoriteMarkRead postFavsListMarkRead(Favorite favorite, Release release, Token token) {
         Objects.requireNonNull(favorite, "favorite missing");
         Objects.requireNonNull(release, "release missing");
         Objects.requireNonNull(token, "token missing");
@@ -1724,7 +1724,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6344/api-favs-list-markread.html">API:
      * favs/list_markread method</a>
      */
-    public FavoriteMarkRead postFavsListMarkRead(Favorite favorite, P2pRelease p2pRelease, Token token) throws XrelException {
+    public FavoriteMarkRead postFavsListMarkRead(Favorite favorite, P2pRelease p2pRelease, Token token) {
         Objects.requireNonNull(favorite, "favorite missing");
         Objects.requireNonNull(p2pRelease, "p2pRelease missing");
         Objects.requireNonNull(token, "token missing");
@@ -1746,7 +1746,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6313/api-comments-get.html">API: comments/get
      * method</a>
      */
-    private PaginationList<Comment> getCommentsGet(Release release, P2pRelease p2pRelease, int perPage, int page) throws XrelException {
+    private PaginationList<Comment> getCommentsGet(Release release, P2pRelease p2pRelease, int perPage, int page) {
         int[] normalizedPageValues = normalizePageValues(perPage, page);
         String id;
         String type;
@@ -1781,7 +1781,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6313/api-comments-get.html">API: comments/get
      * method</a>
      */
-    public PaginationList<Comment> getCommentsGet(Release release, int perPage, int page) throws XrelException {
+    public PaginationList<Comment> getCommentsGet(Release release, int perPage, int page) {
         Objects.requireNonNull(release, "release missing");
         
         return getCommentsGet(release, null, perPage, page);
@@ -1800,7 +1800,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6313/api-comments-get.html">API: comments/get
      * method</a>
      */
-    public PaginationList<Comment> getCommentsGet(P2pRelease p2pRelease, int perPage, int page) throws XrelException {
+    public PaginationList<Comment> getCommentsGet(P2pRelease p2pRelease, int perPage, int page) {
         Objects.requireNonNull(p2pRelease, "p2pRelease missing");
         
         return getCommentsGet(null, p2pRelease, perPage, page);
@@ -1828,7 +1828,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6312/api-comments-add.html">API: comments/add
      * method</a>
      */
-    private Comment postCommentsAdd(Release release, P2pRelease p2pRelease, String text, Integer videoRating, Integer audioRating, Token token) throws XrelException {
+    private Comment postCommentsAdd(Release release, P2pRelease p2pRelease, String text, Integer videoRating, Integer audioRating, Token token) {
         Objects.requireNonNull(token, "token missing");
         String id;
         String type;
@@ -1868,7 +1868,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6312/api-comments-add.html">API: comments/add
      * method</a>
      */
-    public Comment postCommentsAdd(Release release, int videoRating, int audioRating, Token token) throws XrelException {
+    public Comment postCommentsAdd(Release release, int videoRating, int audioRating, Token token) {
         Objects.requireNonNull(release, "release missing");
         Objects.requireNonNull(token, "token missing");
         
@@ -1894,7 +1894,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6312/api-comments-add.html">API: comments/add
      * method</a>
      */
-    public Comment postCommentsAdd(Release release, String text, Token token) throws XrelException {
+    public Comment postCommentsAdd(Release release, String text, Token token) {
         Objects.requireNonNull(release, "release missing");
         Objects.requireNonNull(token, "token missing");
         Objects.requireNonNull(text, "text missing");
@@ -1923,7 +1923,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6312/api-comments-add.html">API: comments/add
      * method</a>
      */
-    public Comment postCommentsAdd(Release release, String text, int videoRating, int audioRating, Token token) throws XrelException {
+    public Comment postCommentsAdd(Release release, String text, int videoRating, int audioRating, Token token) {
         Objects.requireNonNull(release, "release missing");
         Objects.requireNonNull(token, "token missing");
         Objects.requireNonNull(text, "text missing");
@@ -1953,7 +1953,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6312/api-comments-add.html">API: comments/add
      * method</a>
      */
-    public Comment postCommentsAdd(P2pRelease p2pRelease, int videoRating, int audioRating, Token token) throws XrelException {
+    public Comment postCommentsAdd(P2pRelease p2pRelease, int videoRating, int audioRating, Token token) {
         Objects.requireNonNull(p2pRelease, "p2pRelease missing");
         Objects.requireNonNull(token, "token missing");
         
@@ -1978,7 +1978,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6312/api-comments-add.html">API: comments/add
      * method</a>
      */
-    public Comment postCommentsAdd(P2pRelease p2pRelease, String text, Token token) throws XrelException {
+    public Comment postCommentsAdd(P2pRelease p2pRelease, String text, Token token) {
         Objects.requireNonNull(p2pRelease, "p2pRelease missing");
         Objects.requireNonNull(token, "token missing");
         Objects.requireNonNull(text, "text missing");
@@ -2006,7 +2006,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6312/api-comments-add.html">API: comments/add
      * method</a>
      */
-    public Comment postCommentsAdd(P2pRelease p2pRelease, String text, int videoRating, int audioRating, Token token) throws XrelException {
+    public Comment postCommentsAdd(P2pRelease p2pRelease, String text, int videoRating, int audioRating, Token token) {
         Objects.requireNonNull(p2pRelease, "p2pRelease missing");
         Objects.requireNonNull(token, "token missing");
         Objects.requireNonNull(text, "text missing");
@@ -2028,7 +2028,7 @@ public class Xrel {
      * @throws XrelException If there is an error returned by the xREL API
      * @see <a href= "https://www.xrel.to/wiki/6441/api-user-info.html">API: user/info method</a>
      */
-    public User getUserInfo(Token token) throws XrelException {
+    public User getUserInfo(Token token) {
         Objects.requireNonNull(token, "token missing");
         final Call<User> call = restClient.getXrelService().userInfo(token.createBearerHeader());
         final Response<User> response;
@@ -2071,7 +2071,7 @@ public class Xrel {
      * @throws XrelException If there is an error returned by the xREL API
      * @see <a href="https://www.xrel.to/wiki/6436/api-oauth2.html">API: OAuth 2.0</a>
      */
-    private Token postOauth2TokenPrivate(String grantType, String code, Token token) throws XrelException {
+    private Token postOauth2TokenPrivate(String grantType, String code, Token token) {
         Objects.requireNonNull(grantType, "grantType missing");
         if (!Objects.equals(grantType, "authorization_code") && !Objects.equals(grantType, "client_credentials") && !Objects.equals(grantType, "refresh_token")) {
             throw new XrelException("Invalid grant_type");
@@ -2133,7 +2133,7 @@ public class Xrel {
      * @throws XrelException If there is an error returned by the xREL API
      * @see <a href="https://www.xrel.to/wiki/6436/api-oauth2.html">API: OAuth 2.0</a>
      */
-    public Token postOauth2Token(String grantType, Token token) throws XrelException {
+    public Token postOauth2Token(String grantType, Token token) {
         Objects.requireNonNull(grantType, "grantType missing");
         Objects.requireNonNull(token, "token missing");
         
@@ -2153,7 +2153,7 @@ public class Xrel {
      * @throws XrelException If there is an error returned by the xREL API
      * @see <a href="https://www.xrel.to/wiki/6436/api-oauth2.html">API: OAuth 2.0</a>
      */
-    public Token postOauth2Token(String grantType, String code) throws XrelException {
+    public Token postOauth2Token(String grantType, String code) {
         Objects.requireNonNull(grantType, "grantType missing");
         Objects.requireNonNull(code, "code missing");
         
