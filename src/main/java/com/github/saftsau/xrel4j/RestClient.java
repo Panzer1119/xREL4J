@@ -17,66 +17,67 @@
 
 package com.github.saftsau.xrel4j;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.Optional;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Optional;
+
 class RestClient {
-
-  private static final class InstanceHolder {
-    static final RestClient INSTANCE = new RestClient();
-  }
-
-  private static Retrofit retrofit;
-  private static XrelService xrelService;
-  private final static String xrelUrl = "https://api.xrel.to/v2/";
-
-  public static RestClient getInstance() {
-    if (retrofit == null) {
-      retrofit = new Retrofit.Builder().baseUrl(xrelUrl)
-          .addConverterFactory(JacksonConverterFactory.create())
-          .client(new OkHttpClient.Builder().addInterceptor(new ResponseInterceptor()).build())
-          .build();
-
-      xrelService = retrofit.create(XrelService.class);
+    
+    private static final class InstanceHolder {
+        static final RestClient INSTANCE = new RestClient();
     }
-    return InstanceHolder.INSTANCE;
-  }
-
-  private RestClient() {}
-
-  public String getOAuth2Auth(String responseType, String clientId, Optional<String> redirectUri,
-      Optional<String> state, Optional<String[]> scope) {
-    String url;
-    try {
-      url = xrelUrl + "oauth2/auth?response_type=" + URLEncoder.encode(responseType, "UTF-8")
-          + "&client_id=" + clientId;
-      if (redirectUri.isPresent()) {
-        url = url + "&redirect_uri=" + URLEncoder.encode(redirectUri.get(), "UTF-8");
-      }
-      if (state.isPresent()) {
-        url = url + "&state=" + URLEncoder.encode(state.get(), "UTF-8");
-      }
-      if (scope.isPresent() && scope.get().length > 0) {
-        url = url + "&scope=" + URLEncoder.encode(String.join(" ", scope.get()), "UTF-8");
-      }
-    } catch (UnsupportedEncodingException e) {
-      // We just wrap this as a RuntimeException because every device should understand UTF-8 and if
-      // it doesn't the whole library doesn't work anyway. This makes working with this method
-      // easier.
-      throw new RuntimeException(e);
+    
+    private static Retrofit retrofit;
+    private static XrelService xrelService;
+    private final static String xrelUrl = "https://api.xrel.to/v2/";
+    
+    public static RestClient getInstance() {
+        if (retrofit == null) {
+            retrofit = new Retrofit.Builder().baseUrl(xrelUrl)
+                    .addConverterFactory(JacksonConverterFactory.create())
+                    .client(new OkHttpClient.Builder().addInterceptor(new ResponseInterceptor()).build())
+                    .build();
+            
+            xrelService = retrofit.create(XrelService.class);
+        }
+        return InstanceHolder.INSTANCE;
     }
-    return url;
-  }
-
-  public Retrofit getRetrofit() {
-    return retrofit;
-  }
-
-  public XrelService getXrelService() {
-    return xrelService;
-  }
+    
+    private RestClient() {
+    }
+    
+    public String getOAuth2Auth(String responseType, String clientId, Optional<String> redirectUri, Optional<String> state, Optional<String[]> scope) {
+        String url;
+        try {
+            url = xrelUrl + "oauth2/auth?response_type=" + URLEncoder.encode(responseType, "UTF-8") + "&client_id=" + clientId;
+            if (redirectUri.isPresent()) {
+                url = url + "&redirect_uri=" + URLEncoder.encode(redirectUri.get(), "UTF-8");
+            }
+            if (state.isPresent()) {
+                url = url + "&state=" + URLEncoder.encode(state.get(), "UTF-8");
+            }
+            if (scope.isPresent() && scope.get().length > 0) {
+                url = url + "&scope=" + URLEncoder.encode(String.join(" ", scope.get()), "UTF-8");
+            }
+        } catch (UnsupportedEncodingException e) {
+            // We just wrap this as a RuntimeException because every device should understand UTF-8 and if
+            // it doesn't the whole library doesn't work anyway. This makes working with this method
+            // easier.
+            throw new RuntimeException(e);
+        }
+        return url;
+    }
+    
+    public Retrofit getRetrofit() {
+        return retrofit;
+    }
+    
+    public XrelService getXrelService() {
+        return xrelService;
+    }
+    
 }
