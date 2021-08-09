@@ -370,13 +370,16 @@ public class Xrel {
      * @return {@code false} if found, {@code true} otherwise
      */
     private boolean denyScope(String scope) {
-        boolean found = false;
+        if (getScope().isEmpty()) {
+            throw new XrelException("No Scope provided");
+        }
+        boolean deny = true;
         for (int i = 0; i < getScope().get().length; i++) {
             if (getScope().get()[i].equals(scope)) {
-                found = true;
+                deny = false;
             }
         }
-        return !found;
+        return deny;
     }
     
     /**
