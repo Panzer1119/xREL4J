@@ -25,7 +25,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
-class RestClient {
+public class RestClient {
     
     private static final class InstanceHolder {
         static final RestClient INSTANCE = new RestClient(createHttpClientBuilder());
