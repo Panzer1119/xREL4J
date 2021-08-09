@@ -21,8 +21,8 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 class RestClient {
@@ -63,22 +63,15 @@ class RestClient {
     
     public String getOAuth2Auth(String responseType, String clientId, Optional<String> redirectUri, Optional<String> state, Optional<String[]> scope) {
         String url;
-        try {
-            url = BASE_XREL_URL + "oauth2/auth?response_type=" + URLEncoder.encode(responseType, "UTF-8") + "&client_id=" + clientId;
-            if (redirectUri.isPresent()) {
-                url = url + "&redirect_uri=" + URLEncoder.encode(redirectUri.get(), "UTF-8");
-            }
-            if (state.isPresent()) {
-                url = url + "&state=" + URLEncoder.encode(state.get(), "UTF-8");
-            }
-            if (scope.isPresent() && scope.get().length > 0) {
-                url = url + "&scope=" + URLEncoder.encode(String.join(" ", scope.get()), "UTF-8");
-            }
-        } catch (UnsupportedEncodingException e) {
-            // We just wrap this as a RuntimeException because every device should understand UTF-8 and if
-            // it doesn't the whole library doesn't work anyway. This makes working with this method
-            // easier.
-            throw new RuntimeException(e);
+        url = BASE_XREL_URL + "oauth2/auth?response_type=" + URLEncoder.encode(responseType, StandardCharsets.UTF_8) + "&client_id=" + clientId;
+        if (redirectUri.isPresent()) {
+            url = url + "&redirect_uri=" + URLEncoder.encode(redirectUri.get(), StandardCharsets.UTF_8);
+        }
+        if (state.isPresent()) {
+            url = url + "&state=" + URLEncoder.encode(state.get(), StandardCharsets.UTF_8);
+        }
+        if (scope.isPresent() && scope.get().length > 0) {
+            url = url + "&scope=" + URLEncoder.encode(String.join(" ", scope.get()), StandardCharsets.UTF_8);
         }
         return url;
     }
