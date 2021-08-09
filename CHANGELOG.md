@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.1](https://github.com/Panzer1119/xREL4J/compare/v1.3.0...v1.3.1) (2021-08-09)
+
+
+### Bug Fixes
+
+* ensure generic type T in PaginationList.java is Serializable ([01797f7](https://github.com/Panzer1119/xREL4J/commit/01797f7edd05b0ed9d48f0057f4c0a26fa966c0e))
+* make RestClient.java publicly accessible ([922da27](https://github.com/Panzer1119/xREL4J/commit/922da2733103ce3f7d57a6dfe28e34eae8f94847))
+
 ## [1.3.0](https://github.com/Panzer1119/xREL4J/compare/v1.2.2...v1.3.0) (2021-08-09)
 
 
