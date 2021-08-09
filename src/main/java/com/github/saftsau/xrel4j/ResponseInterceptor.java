@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import okhttp3.Interceptor;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import okio.Buffer;
 import okio.BufferedSource;
 
@@ -43,23 +44,27 @@ class ResponseInterceptor implements Interceptor {
 
     final String xRateLimitLimit = response.headers().get("X-RateLimit-Limit");
     if (xRateLimitLimit != null) {
-      setXRateLimitLimit(Integer.valueOf(xRateLimitLimit));
+      setXRateLimitLimit(Integer.parseInt(xRateLimitLimit));
     }
 
     final String xRateLimitRemaining = response.headers().get("X-RateLimit-Remaining");
     if (xRateLimitRemaining != null) {
-      setXRateLimitRemaining(Integer.valueOf(xRateLimitRemaining));
+      setXRateLimitRemaining(Integer.parseInt(xRateLimitRemaining));
     }
 
     final String xRateLimitReset = response.headers().get("X-RateLimit-Reset");
     if (xRateLimitReset != null) {
-      setXRateLimitReset(Integer.valueOf(xRateLimitReset));
+      setXRateLimitReset(Integer.parseInt(xRateLimitReset));
     }
 
     // Try to handle an error. We have to rely on this method because currently the status codes
     // returned by the xREL API can't be trusted, e.g. returning 2xx responses for errors.
     // Otherwise we have an error
-    BufferedSource source = response.body().source();
+    final ResponseBody body = response.body();
+    if (body == null) {
+      throw new XrelException(getResponseCode());
+    }
+    BufferedSource source = body.source();
     source.request(Long.MAX_VALUE); // request the entire body.
     Buffer buffer = source.buffer();
     // clone buffer before reading from it
