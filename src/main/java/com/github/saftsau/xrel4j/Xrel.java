@@ -58,7 +58,16 @@ public class Xrel {
     /**
      * Constructs a new xREL object without any oAuth information.
      *
-     * @param restClient
+     * @see <a href="https://www.xrel.to/wiki/6436/api-oauth2.html">API: OAuth 2.0</a>
+     */
+    public Xrel() {
+        this(RestClient.getInstance());
+    }
+    
+    /**
+     * Constructs a new xREL object without any oAuth information.
+     *
+     * @param restClient The RestClient
      *
      * @see <a href="https://www.xrel.to/wiki/6436/api-oauth2.html">API: OAuth 2.0</a>
      */
@@ -68,19 +77,21 @@ public class Xrel {
     }
     
     /**
-     * Constructs a new xREL object without any oAuth information.
+     * Constructs a new xREL object with oAuth information and no scopes.
+     *
+     * @param clientId Your consumer key.
+     * @param clientSecret Your consumer secret.
      *
      * @see <a href="https://www.xrel.to/wiki/6436/api-oauth2.html">API: OAuth 2.0</a>
      */
-    public Xrel() {
-        this.restClient = RestClient.getInstance();
-        this.clientId = Optional.empty();
+    public Xrel(String clientId, String clientSecret) {
+        this(RestClient.getInstance(), clientId, clientSecret);
     }
     
     /**
      * Constructs a new xREL object with oAuth information and no scopes.
      *
-     * @param restClient
+     * @param restClient The RestClient
      * @param clientId Your consumer key.
      * @param clientSecret Your consumer secret.
      *
@@ -100,22 +111,21 @@ public class Xrel {
      *
      * @param clientId Your consumer key.
      * @param clientSecret Your consumer secret.
+     * @param redirectUri Optional URI to redirect to after the authentication. Please read the Guide
+     * for more details.
+     * @param state Optionally any string. You may set this value to any value, and it will be
+     * returned after the authentication. It might also be useful to prevent CSRF attacks.
      *
      * @see <a href="https://www.xrel.to/wiki/6436/api-oauth2.html">API: OAuth 2.0</a>
      */
-    public Xrel(String clientId, String clientSecret) {
-        this.restClient = RestClient.getInstance();
-        this.clientId = Optional.of(clientId);
-        this.clientSecret = Optional.of(clientSecret);
-        this.redirectUri = Optional.empty();
-        this.state = Optional.empty();
-        this.scope = Optional.empty();
+    public Xrel(String clientId, String clientSecret, Optional<String> redirectUri, Optional<String> state) {
+        this(RestClient.getInstance(), clientId, clientSecret, redirectUri, state);
     }
     
     /**
      * Constructs a new xREL object with oAuth information and no scopes.
      *
-     * @param restClient
+     * @param restClient The RestClient
      * @param clientId Your consumer key.
      * @param clientSecret Your consumer secret.
      * @param redirectUri Optional URI to redirect to after the authentication. Please read the Guide
@@ -135,31 +145,26 @@ public class Xrel {
     }
     
     /**
-     * Constructs a new xREL object with oAuth information and no scopes.
+     * Constructs a new xREL object. If you have oAuth access but no additional scopes you should use
+     * {@link #Xrel(String, String, Optional, Optional)}.
      *
      * @param clientId Your consumer key.
      * @param clientSecret Your consumer secret.
-     * @param redirectUri Optional URI to redirect to after the authentication. Please read the Guide
-     * for more details.
-     * @param state Optionally any string. You may set this value to any value, and it will be
-     * returned after the authentication. It might also be useful to prevent CSRF attacks.
+     * @param scope Needed to access protected methods. If you do have scope access: you MUST supply
+     * these while processing the Tokens, even if you only plan to use them at a later stage.
+     * Rule of thumb: if you have these, always add them here.
      *
      * @see <a href="https://www.xrel.to/wiki/6436/api-oauth2.html">API: OAuth 2.0</a>
      */
-    public Xrel(String clientId, String clientSecret, Optional<String> redirectUri, Optional<String> state) {
-        this.restClient = RestClient.getInstance();
-        this.clientId = Optional.of(clientId);
-        this.clientSecret = Optional.of(clientSecret);
-        this.redirectUri = redirectUri;
-        this.state = state;
-        this.scope = Optional.empty();
+    public Xrel(String clientId, String clientSecret, String[] scope) {
+        this(RestClient.getInstance(), clientId, clientSecret, scope);
     }
     
     /**
      * Constructs a new xREL object. If you have oAuth access but no additional scopes you should use
      * {@link #Xrel(RestClient, String, String, Optional, Optional)}.
      *
-     * @param restClient
+     * @param restClient The RestClient
      * @param clientId Your consumer key.
      * @param clientSecret Your consumer secret.
      * @param scope Needed to access protected methods. If you do have scope access: you MUST supply
@@ -183,26 +188,25 @@ public class Xrel {
      *
      * @param clientId Your consumer key.
      * @param clientSecret Your consumer secret.
+     * @param redirectUri Optional URI to redirect to after the authentication. Please read the Guide
+     * for more details.
+     * @param state Optionally any string. You may set this value to any value, and it will be
+     * returned after the authentication. It might also be useful to prevent CSRF attacks.
      * @param scope Needed to access protected methods. If you do have scope access: you MUST supply
      * these while processing the Tokens, even if you only plan to use them at a later stage.
      * Rule of thumb: if you have these, always add them here.
      *
      * @see <a href="https://www.xrel.to/wiki/6436/api-oauth2.html">API: OAuth 2.0</a>
      */
-    public Xrel(String clientId, String clientSecret, String[] scope) {
-        this.restClient = RestClient.getInstance();
-        this.clientId = Optional.of(clientId);
-        this.clientSecret = Optional.of(clientSecret);
-        this.redirectUri = Optional.empty();
-        this.state = Optional.empty();
-        this.scope = Optional.of(scope);
+    public Xrel(String clientId, String clientSecret, Optional<String> redirectUri, Optional<String> state, String[] scope) {
+        this(RestClient.getInstance(), clientId, clientSecret, redirectUri, state, scope);
     }
     
     /**
      * Constructs a new xREL object. If you have oAuth access but no additional scopes you should use
      * {@link #Xrel(RestClient, String, String, Optional, Optional)}.
      *
-     * @param restClient
+     * @param restClient The RestClient
      * @param clientId Your consumer key.
      * @param clientSecret Your consumer secret.
      * @param redirectUri Optional URI to redirect to after the authentication. Please read the Guide
@@ -217,31 +221,6 @@ public class Xrel {
      */
     public Xrel(RestClient restClient, String clientId, String clientSecret, Optional<String> redirectUri, Optional<String> state, String[] scope) {
         this.restClient = restClient;
-        this.clientId = Optional.of(clientId);
-        this.clientSecret = Optional.of(clientSecret);
-        this.redirectUri = redirectUri;
-        this.state = state;
-        this.scope = Optional.of(scope);
-    }
-    
-    /**
-     * Constructs a new xREL object. If you have oAuth access but no additional scopes you should use
-     * {@link #Xrel(String, String, Optional, Optional)}.
-     *
-     * @param clientId Your consumer key.
-     * @param clientSecret Your consumer secret.
-     * @param redirectUri Optional URI to redirect to after the authentication. Please read the Guide
-     * for more details.
-     * @param state Optionally any string. You may set this value to any value, and it will be
-     * returned after the authentication. It might also be useful to prevent CSRF attacks.
-     * @param scope Needed to access protected methods. If you do have scope access: you MUST supply
-     * these while processing the Tokens, even if you only plan to use them at a later stage.
-     * Rule of thumb: if you have these, always add them here.
-     *
-     * @see <a href="https://www.xrel.to/wiki/6436/api-oauth2.html">API: OAuth 2.0</a>
-     */
-    public Xrel(String clientId, String clientSecret, Optional<String> redirectUri, Optional<String> state, String[] scope) {
-        this.restClient = RestClient.getInstance();
         this.clientId = Optional.of(clientId);
         this.clientSecret = Optional.of(clientSecret);
         this.redirectUri = redirectUri;
