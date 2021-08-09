@@ -28,32 +28,43 @@ import java.util.Optional;
 class RestClient {
     
     private static final class InstanceHolder {
-        static final RestClient INSTANCE = new RestClient();
+        static final RestClient INSTANCE = new RestClient(createHttpClientBuilder());
     }
     
-    private static Retrofit retrofit;
-    private static XrelService xrelService;
-    private final static String xrelUrl = "https://api.xrel.to/v2/";
+    public static final String BASE_XREL_URL = "https://api.xrel.to/v2/";
+    
+    private final Retrofit retrofit;
+    private final XrelService xrelService;
     
     public static RestClient getInstance() {
-        if (retrofit == null) {
-            retrofit = new Retrofit.Builder().baseUrl(xrelUrl)
-                    .addConverterFactory(JacksonConverterFactory.create())
-                    .client(new OkHttpClient.Builder().addInterceptor(new ResponseInterceptor()).build())
-                    .build();
-            
-            xrelService = retrofit.create(XrelService.class);
-        }
         return InstanceHolder.INSTANCE;
     }
     
-    private RestClient() {
+    public static OkHttpClient.Builder createHttpClientBuilder() {
+        return new OkHttpClient.Builder().addInterceptor(new ResponseInterceptor());
+    }
+    
+    public RestClient(OkHttpClient.Builder httpClientBuilder) {
+        this(httpClientBuilder.build());
+    }
+    
+    public RestClient(OkHttpClient httpClient) {
+        this(new Retrofit.Builder().baseUrl(BASE_XREL_URL).addConverterFactory(JacksonConverterFactory.create()).client(httpClient).build());
+    }
+    
+    public RestClient(Retrofit retrofit) {
+        this(retrofit, retrofit.create(XrelService.class));
+    }
+    
+    public RestClient(Retrofit retrofit, XrelService xrelService) {
+        this.retrofit = retrofit;
+        this.xrelService = xrelService;
     }
     
     public String getOAuth2Auth(String responseType, String clientId, Optional<String> redirectUri, Optional<String> state, Optional<String[]> scope) {
         String url;
         try {
-            url = xrelUrl + "oauth2/auth?response_type=" + URLEncoder.encode(responseType, "UTF-8") + "&client_id=" + clientId;
+            url = BASE_XREL_URL + "oauth2/auth?response_type=" + URLEncoder.encode(responseType, "UTF-8") + "&client_id=" + clientId;
             if (redirectUri.isPresent()) {
                 url = url + "&redirect_uri=" + URLEncoder.encode(redirectUri.get(), "UTF-8");
             }
