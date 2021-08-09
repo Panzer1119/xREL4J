@@ -28,7 +28,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 /**
- * {@link ClientResponseFilter} class used to handle rate limit headers.
+ * ClientResponseFilter class used to handle rate limit headers.
  */
 class ResponseInterceptor implements Interceptor {
     
@@ -39,25 +39,20 @@ class ResponseInterceptor implements Interceptor {
     
     @Override
     public Response intercept(Chain chain) throws IOException {
-        Response response = chain.proceed(chain.request());
-        
+        final Response response = chain.proceed(chain.request());
         setResponseCode(response.code());
-        
         final String xRateLimitLimit = response.headers().get("X-RateLimit-Limit");
         if (xRateLimitLimit != null) {
             setXRateLimitLimit(Integer.parseInt(xRateLimitLimit));
         }
-        
         final String xRateLimitRemaining = response.headers().get("X-RateLimit-Remaining");
         if (xRateLimitRemaining != null) {
             setXRateLimitRemaining(Integer.parseInt(xRateLimitRemaining));
         }
-        
         final String xRateLimitReset = response.headers().get("X-RateLimit-Reset");
         if (xRateLimitReset != null) {
             setXRateLimitReset(Integer.parseInt(xRateLimitReset));
         }
-        
         // Try to handle an error. We have to rely on this method because currently the status codes
         // returned by the xREL API can't be trusted, e.g. returning 2xx responses for errors.
         // Otherwise we have an error
@@ -65,12 +60,12 @@ class ResponseInterceptor implements Interceptor {
         if (body == null) {
             throw new XrelException(getResponseCode());
         }
-        BufferedSource source = body.source();
+        final BufferedSource source = body.source();
         source.request(Long.MAX_VALUE); // request the entire body.
-        Buffer buffer = source.buffer();
+        final Buffer buffer = source.getBuffer();
         // clone buffer before reading from it
-        String responseString = buffer.clone().readString(StandardCharsets.UTF_8);
-        ObjectMapper objectMapper = new ObjectMapper();
+        final String responseString = buffer.clone().readString(StandardCharsets.UTF_8);
+        final ObjectMapper objectMapper = new ObjectMapper();
         Error error = null;
         try {
             error = objectMapper.readValue(responseString, Error.class);
@@ -82,7 +77,6 @@ class ResponseInterceptor implements Interceptor {
         } else if (!response.isSuccessful()) {
             throw new XrelException(getResponseCode());
         }
-        
         return response;
     }
     
