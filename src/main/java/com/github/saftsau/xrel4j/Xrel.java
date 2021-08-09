@@ -395,7 +395,7 @@ public class Xrel {
     private Release getReleaseInfo(String idDir, boolean useId) throws XrelException {
         Objects.requireNonNull(idDir, "idDir missing");
         
-        XrelService xrelService = RestClient.getInstance().getXrelService();
+        XrelService xrelService = restClient.getXrelService();
         Call<Release> call = null;
         if (useId) {
             call = xrelService.releaseInfo(idDir, null);
@@ -477,8 +477,7 @@ public class Xrel {
         if (token != null) {
             bearerToken = token.createBearerHeader();
         }
-        Call<PaginationList<Release>> call = RestClient.getInstance()
-                .getXrelService()
+        Call<PaginationList<Release>> call = restClient.getXrelService()
                 .releaseLatest(bearerToken, normalizedPageValues[0], normalizedPageValues[1], archive, filterParam);
         
         Response<PaginationList<Release>> response = null;
@@ -655,7 +654,7 @@ public class Xrel {
      * release/categories method</a>
      */
     public Set<ReleaseCategory> getReleaseCategories() throws XrelException {
-        Call<Set<ReleaseCategory>> call = RestClient.getInstance().getXrelService().releaseCategories();
+        Call<Set<ReleaseCategory>> call = restClient.getXrelService().releaseCategories();
         
         Response<Set<ReleaseCategory>> response = null;
         try {
@@ -695,8 +694,7 @@ public class Xrel {
     private PaginationList<Release> getReleaseBrowseCategoryPrivate(ReleaseCategory category, String extInfoType, int perPage, int page) throws XrelException {
         int[] normalizedPageValues = normalizePageValues(perPage, page);
         
-        Call<PaginationList<Release>> call = RestClient.getInstance()
-                .getXrelService()
+        Call<PaginationList<Release>> call = restClient.getXrelService()
                 .releaseBrowseCategory(category.getName(), extInfoType, normalizedPageValues[0], normalizedPageValues[1]);
         Response<PaginationList<Release>> response = null;
         try {
@@ -764,8 +762,7 @@ public class Xrel {
         
         int[] normalizedPageValues = normalizePageValues(perPage, page);
         
-        Call<PaginationList<Release>> call = RestClient.getInstance()
-                .getXrelService()
+        Call<PaginationList<Release>> call = restClient.getXrelService()
                 .releaseExtInfo(extInfo.getId(), normalizedPageValues[0], normalizedPageValues[1]);
         Response<PaginationList<Release>> response = null;
         try {
@@ -790,7 +787,7 @@ public class Xrel {
      * method</a>
      */
     public Set<Filter> getReleaseFilters() throws XrelException {
-        Call<Set<Filter>> call = RestClient.getInstance().getXrelService().releaseFilters();
+        Call<Set<Filter>> call = restClient.getXrelService().releaseFilters();
         Response<Set<Filter>> response = null;
         try {
             response = call.execute();
@@ -831,7 +828,7 @@ public class Xrel {
             ids.add(release.getId());
         }
         
-        Call<ReleaseAddProof> call = RestClient.getInstance().getXrelService().releaseAddproof(token.createBearerHeader(), ids, image);
+        Call<ReleaseAddProof> call = restClient.getXrelService().releaseAddproof(token.createBearerHeader(), ids, image);
         Response<ReleaseAddProof> response = null;
         try {
             response = call.execute();
@@ -874,8 +871,7 @@ public class Xrel {
         if (extInfo != null) {
             extInfoId = extInfo.getId();
         }
-        Call<PaginationList<P2pRelease>> call = RestClient.getInstance()
-                .getXrelService()
+        Call<PaginationList<P2pRelease>> call = restClient.getXrelService()
                 .p2pReleases(normalizedPageValues[0], normalizedPageValues[1], categoryId, groupId, extInfoId);
         Response<PaginationList<P2pRelease>> response = null;
         try {
@@ -1043,7 +1039,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/3698/api-p2p-categories.html">API: p2p/categories</a>
      */
     public Set<P2pCategory> getP2pCategories() throws XrelException {
-        Call<Set<P2pCategory>> call = RestClient.getInstance().getXrelService().p2pCategories();
+        Call<Set<P2pCategory>> call = restClient.getXrelService().p2pCategories();
         Response<Set<P2pCategory>> response = null;
         try {
             response = call.execute();
@@ -1073,9 +1069,9 @@ public class Xrel {
         
         Call<P2pRelease> call = null;
         if (useId) {
-            call = RestClient.getInstance().getXrelService().p2pRlsInfo(idDir, null);
+            call = restClient.getXrelService().p2pRlsInfo(idDir, null);
         } else {
-            call = RestClient.getInstance().getXrelService().p2pRlsInfo(null, idDir);
+            call = restClient.getXrelService().p2pRlsInfo(null, idDir);
         }
         
         Response<P2pRelease> response = null;
@@ -1140,7 +1136,7 @@ public class Xrel {
             throw new XrelException("viewnfo scope not provided");
         }
         
-        Call<ResponseBody> call = RestClient.getInstance().getXrelService().nfoRelease(token.createBearerHeader(), release.getId());
+        Call<ResponseBody> call = restClient.getXrelService().nfoRelease(token.createBearerHeader(), release.getId());
         byte[] nfo = null;
         try {
             Response<ResponseBody> response = call.execute();
@@ -1171,7 +1167,7 @@ public class Xrel {
             throw new XrelException("viewnfo scope not provided");
         }
         
-        Call<ResponseBody> call = RestClient.getInstance().getXrelService().nfoP2pRelease(token.createBearerHeader(), p2pRelease.getId());
+        Call<ResponseBody> call = restClient.getXrelService().nfoP2pRelease(token.createBearerHeader(), p2pRelease.getId());
         byte[] nfo = null;
         try {
             Response<ResponseBody> response = call.execute();
@@ -1202,7 +1198,7 @@ public class Xrel {
             throw new XrelException("country must be either de or us");
         }
         
-        Call<List<ExtInfo>> call = RestClient.getInstance().getXrelService().calendarUpcoming(country);
+        Call<List<ExtInfo>> call = restClient.getXrelService().calendarUpcoming(country);
         Response<List<ExtInfo>> response = null;
         try {
             response = call.execute();
@@ -1233,7 +1229,7 @@ public class Xrel {
         if (token != null) {
             authorization = token.createBearerHeader();
         }
-        Call<ExtInfo> call = RestClient.getInstance().getXrelService().extInfoInfo(authorization, extInfo.getId());
+        Call<ExtInfo> call = restClient.getXrelService().extInfoInfo(authorization, extInfo.getId());
         Response<ExtInfo> response = null;
         try {
             response = call.execute();
@@ -1295,7 +1291,7 @@ public class Xrel {
     public void getExtInfoMedia(ExtInfo extInfo) throws XrelException {
         Objects.requireNonNull(extInfo, "extInfo missing");
         
-        Call<List<ExtInfoMedia>> call = RestClient.getInstance().getXrelService().extInfoMedia(extInfo.getId());
+        Call<List<ExtInfoMedia>> call = restClient.getXrelService().extInfoMedia(extInfo.getId());
         Response<List<ExtInfoMedia>> response = null;
         try {
             response = call.execute();
@@ -1332,7 +1328,7 @@ public class Xrel {
             throw new XrelException("rating must be in the range of 1 - 10");
         }
         
-        Call<ExtInfo> call = RestClient.getInstance().getXrelService().extInfoRate(token.createBearerHeader(), extInfo.getId(), rating);
+        Call<ExtInfo> call = restClient.getXrelService().extInfoRate(token.createBearerHeader(), extInfo.getId(), rating);
         Response<ExtInfo> response = null;
         try {
             response = call.execute();
@@ -1370,7 +1366,7 @@ public class Xrel {
             throw new XrelException("limit must be either null or greater than 1");
         }
         
-        Call<ReleaseSearchResult> call = RestClient.getInstance().getXrelService().searchReleases(q, scene, p2p, limit);
+        Call<ReleaseSearchResult> call = restClient.getXrelService().searchReleases(q, scene, p2p, limit);
         Response<ReleaseSearchResult> response = null;
         try {
             response = call.execute();
@@ -1460,7 +1456,7 @@ public class Xrel {
             throw new XrelException("limit must be either -1 or greater than 1");
         }
         
-        Call<ExtInfoSearchResult> call = RestClient.getInstance().getXrelService().searchExtInfo(q, type, limit);
+        Call<ExtInfoSearchResult> call = restClient.getXrelService().searchExtInfo(q, type, limit);
         Response<ExtInfoSearchResult> response = null;
         try {
             response = call.execute();
@@ -1577,7 +1573,7 @@ public class Xrel {
     public List<Favorite> getFavsLists(Token token) throws XrelException {
         Objects.requireNonNull(token, "token missing");
         
-        Call<List<Favorite>> call = RestClient.getInstance().getXrelService().favsLists(token.createBearerHeader());
+        Call<List<Favorite>> call = restClient.getXrelService().favsLists(token.createBearerHeader());
         Response<List<Favorite>> response = null;
         try {
             response = call.execute();
@@ -1606,9 +1602,7 @@ public class Xrel {
         Objects.requireNonNull(favorite, "favorite missing");
         Objects.requireNonNull(token, "token missing");
         
-        Call<List<ExtInfo>> call = RestClient.getInstance()
-                .getXrelService()
-                .favsListEntries(token.createBearerHeader(), favorite.getId(), getReleases);
+        Call<List<ExtInfo>> call = restClient.getXrelService().favsListEntries(token.createBearerHeader(), favorite.getId(), getReleases);
         Response<List<ExtInfo>> response = null;
         try {
             response = call.execute();
@@ -1649,9 +1643,9 @@ public class Xrel {
         
         Call<FavoriteAddDelEntry> call = null;
         if (delete) {
-            call = RestClient.getInstance().getXrelService().favsListDelEntry(token.createBearerHeader(), favorite.getId(), extInfo.getId());
+            call = restClient.getXrelService().favsListDelEntry(token.createBearerHeader(), favorite.getId(), extInfo.getId());
         } else {
-            call = RestClient.getInstance().getXrelService().favsListDelEntry(token.createBearerHeader(), favorite.getId(), extInfo.getId());
+            call = restClient.getXrelService().favsListDelEntry(token.createBearerHeader(), favorite.getId(), extInfo.getId());
         }
         Response<FavoriteAddDelEntry> response = null;
         try {
@@ -1734,9 +1728,7 @@ public class Xrel {
             type = "p2p_rls";
         }
         
-        Call<FavoriteMarkRead> call = RestClient.getInstance()
-                .getXrelService()
-                .favsListMarkread(token.createBearerHeader(), favorite.getId(), releaseId, type);
+        Call<FavoriteMarkRead> call = restClient.getXrelService().favsListMarkread(token.createBearerHeader(), favorite.getId(), releaseId, type);
         Response<FavoriteMarkRead> response = null;
         try {
             response = call.execute();
@@ -1817,9 +1809,7 @@ public class Xrel {
             type = "p2p_rls";
         }
         
-        Call<PaginationList<Comment>> call = RestClient.getInstance()
-                .getXrelService()
-                .commentsGet(id, type, normalizedPageValues[0], normalizedPageValues[1]);
+        Call<PaginationList<Comment>> call = restClient.getXrelService().commentsGet(id, type, normalizedPageValues[0], normalizedPageValues[1]);
         Response<PaginationList<Comment>> response = null;
         try {
             response = call.execute();
@@ -1904,9 +1894,7 @@ public class Xrel {
             type = "p2p_rls";
         }
         
-        Call<Comment> call = RestClient.getInstance()
-                .getXrelService()
-                .commentsAdd(token.createBearerHeader(), id, type, text, videoRating, audioRating);
+        Call<Comment> call = restClient.getXrelService().commentsAdd(token.createBearerHeader(), id, type, text, videoRating, audioRating);
         Response<Comment> response = null;
         try {
             response = call.execute();
@@ -2100,7 +2088,7 @@ public class Xrel {
     public User getUserInfo(Token token) throws XrelException {
         Objects.requireNonNull(token, "token missing");
         
-        Call<User> call = RestClient.getInstance().getXrelService().userInfo(token.createBearerHeader());
+        Call<User> call = restClient.getXrelService().userInfo(token.createBearerHeader());
         Response<User> response = null;
         try {
             response = call.execute();
@@ -2122,7 +2110,7 @@ public class Xrel {
      * @see <a href="https://www.xrel.to/wiki/6436/api-oauth2.html">API: OAuth 2.0</a>
      */
     public String getOauth2Auth() {
-        return RestClient.getInstance().getOAuth2Auth(getResponseType(), getClientId().get(), getRedirectUri(), getState(), getScope());
+        return restClient.getOAuth2Auth(getResponseType(), getClientId().get(), getRedirectUri(), getState(), getScope());
     }
     
     /**
@@ -2182,8 +2170,7 @@ public class Xrel {
             scope = String.join(" ", getScope().get());
         }
         
-        Call<Token> call = RestClient.getInstance()
-                .getXrelService()
+        Call<Token> call = restClient.getXrelService()
                 .oauth2Token(grantType, getClientId().get(), getClientSecret().get(), code, redirectUri, refreshToken, scope);
         Response<Token> response = null;
         try {
