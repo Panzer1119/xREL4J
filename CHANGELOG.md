@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/Panzer1119/xREL4J/compare/v1.2.2...v1.3.0) (2021-08-09)
+
+
+### Features
+
+* add restClient variable to Xrel.java ([d4a3d41](https://github.com/Panzer1119/xREL4J/commit/d4a3d41703645d43336c07a0a7c86cbb2e83f2ec))
+* make RestClient.java more customizable ([f9e09e1](https://github.com/Panzer1119/xREL4J/commit/f9e09e13c22ffabe8aecd719d48a856e0579e8ec))
+
+
+### Bug Fixes
+
+* use favsListAddEntry in postFavsListAddDelEntry when delete is false ([a931b16](https://github.com/Panzer1119/xREL4J/commit/a931b165ccde5abc35d4208002db163da5cceaca))
+
 ### [1.2.2](https://github.com/Panzer1119/xREL4J/compare/v1.2.1...v1.2.2) (2021-08-05)
 
 
