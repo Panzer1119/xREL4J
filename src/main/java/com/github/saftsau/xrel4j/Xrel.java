@@ -363,20 +363,20 @@ public class Xrel {
     }
     
     /**
-     * Checks if a specific scope was given at creation time.
+     * Checks if a specific scope is not given at creation time.
      *
      * @param scope The scope to check for
      *
-     * @return {@code true} if found, {@code false} otherwise
+     * @return {@code false} if found, {@code true} otherwise
      */
-    private boolean checkScope(String scope) {
+    private boolean denyScope(String scope) {
         boolean found = false;
         for (int i = 0; i < getScope().get().length; i++) {
             if (getScope().get()[i].equals(scope)) {
                 found = true;
             }
         }
-        return found;
+        return !found;
     }
     
     /**
@@ -807,7 +807,7 @@ public class Xrel {
         Objects.requireNonNull(releaseList, "releaseList missing");
         Objects.requireNonNull(image, "image missing");
         Objects.requireNonNull(token, "token missing");
-        if (getScope().isEmpty() || !checkScope("addproof")) {
+        if (getScope().isEmpty() || denyScope("addproof")) {
             throw new XrelException("addproof scope not provided");
         }
         final Set<String> ids = new HashSet<>();
@@ -1107,7 +1107,7 @@ public class Xrel {
     public byte[] getNfoRelease(Release release, Token token) throws XrelException {
         Objects.requireNonNull(release, "release missing");
         Objects.requireNonNull(token, "token missing");
-        if (getScope().isEmpty() || !checkScope("viewnfo")) {
+        if (getScope().isEmpty() || denyScope("viewnfo")) {
             throw new XrelException("viewnfo scope not provided");
         }
         final Call<ResponseBody> call = restClient.getXrelService().nfoRelease(token.createBearerHeader(), release.getId());
@@ -1135,7 +1135,7 @@ public class Xrel {
     public byte[] getNfoP2pRls(P2pRelease p2pRelease, Token token) throws XrelException {
         Objects.requireNonNull(p2pRelease, "p2pRelease missing");
         Objects.requireNonNull(token, "token missing");
-        if (getScope().isEmpty() || !checkScope("viewnfo")) {
+        if (getScope().isEmpty() || denyScope("viewnfo")) {
             throw new XrelException("viewnfo scope not provided");
         }
         final Call<ResponseBody> call = restClient.getXrelService().nfoP2pRelease(token.createBearerHeader(), p2pRelease.getId());
