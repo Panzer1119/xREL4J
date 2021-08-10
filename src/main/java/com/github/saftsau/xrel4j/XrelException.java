@@ -28,8 +28,9 @@ import java.util.Optional;
 public class XrelException extends RuntimeException {
     
     private static final long serialVersionUID = -6556750388263888839L;
-    private Optional<Error> error;
-    private int responseCode;
+    
+    private final Error error;
+    private final int responseCode;
     
     /**
      * Constructs an XrelException with solely an error message.
@@ -38,7 +39,7 @@ public class XrelException extends RuntimeException {
      */
     public XrelException(String message) {
         super(message);
-        this.error = Optional.empty();
+        this.error = null;
         this.responseCode = -1;
     }
     
@@ -49,7 +50,7 @@ public class XrelException extends RuntimeException {
      */
     public XrelException(int responseCode) {
         super();
-        this.error = Optional.empty();
+        this.error = null;
         this.responseCode = responseCode;
     }
     
@@ -60,7 +61,8 @@ public class XrelException extends RuntimeException {
      */
     public XrelException(Throwable throwable) {
         super(throwable);
-        this.error = Optional.empty();
+        this.error = null;
+        this.responseCode = -1;
     }
     
     /**
@@ -72,7 +74,7 @@ public class XrelException extends RuntimeException {
      */
     public XrelException(Throwable throwable, int responseCode) {
         super(throwable);
-        this.error = Optional.empty();
+        this.error = null;
         this.responseCode = responseCode;
     }
     
@@ -86,7 +88,7 @@ public class XrelException extends RuntimeException {
      */
     public XrelException(String message, Error error, int responseCode) {
         super(message);
-        this.error = Optional.of(error);
+        this.error = error;
         this.responseCode = responseCode;
     }
     
@@ -96,7 +98,7 @@ public class XrelException extends RuntimeException {
      * @return the error
      */
     public Optional<Error> getError() {
-        return error;
+        return Optional.ofNullable(error);
     }
     
     /**
