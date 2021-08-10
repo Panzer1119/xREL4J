@@ -32,7 +32,7 @@ public class Favorite implements Serializable {
     private long id;
     private String name;
     @JsonProperty("public")
-    private boolean public_;
+    private boolean isPublic;
     private boolean notify;
     @JsonProperty("auto_read")
     private boolean autoRead;
@@ -89,17 +89,17 @@ public class Favorite implements Serializable {
      *
      * @return The public status
      */
-    public boolean isPublic_() {
-        return public_;
+    public boolean isPublic() {
+        return isPublic;
     }
     
     /**
      * Sets the public status of this Favorite list. {@code true} if public, {@code false} if private.
      *
-     * @param public_ The public status to set
+     * @param isPublic The public status to set
      */
-    public void setPublic_(boolean public_) {
-        this.public_ = public_;
+    public void setPublic(boolean isPublic) {
+        this.isPublic = isPublic;
     }
     
     /**
@@ -262,7 +262,7 @@ public class Favorite implements Serializable {
     
     @Override
     public String toString() {
-        return "Favorite [getId()=" + getId() + ", getName()=" + getName() + ", isPublic_()=" + isPublic_() + ", isNotify()=" + isNotify() + ", isAutoRead()=" + isAutoRead() + ", isIncludeP2p()=" + isIncludeP2p() + ", getDescription()=" + getDescription() + ", getPasswordHash()=" + getPasswordHash() + ", getEntryCount()=" + getEntryCount() + ", getUnreadReleases()=" + getUnreadReleases() + ", getEntries()=" + getEntries() + "]";
+        return "Favorite [getId()=" + getId() + ", getName()=" + getName() + ", isPublic()=" + isPublic() + ", isNotify()=" + isNotify() + ", isAutoRead()=" + isAutoRead() + ", isIncludeP2p()=" + isIncludeP2p() + ", getDescription()=" + getDescription() + ", getPasswordHash()=" + getPasswordHash() + ", getEntryCount()=" + getEntryCount() + ", getUnreadReleases()=" + getUnreadReleases() + ", getEntries()=" + getEntries() + "]";
     }
     
 }
