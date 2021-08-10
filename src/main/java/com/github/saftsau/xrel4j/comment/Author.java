@@ -21,10 +21,10 @@ package com.github.saftsau.xrel4j.comment;
 import java.io.Serializable;
 
 /**
- * Class used to represent authors used on {@link com.github.saftsau.xrel4j.comment.Comment}.
+ * Class used to represent authors used on {@link Comment}.
  *
- * @param id of the Author
- * @param name of the Author
+ * @param id of the {@link Author}
+ * @param name of the {@link Author}
  */
 public record Author(String id, String name) implements Serializable {
 
