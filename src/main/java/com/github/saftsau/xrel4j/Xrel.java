@@ -2108,27 +2108,7 @@ public class Xrel {
         if (!Objects.equals(grantType, "authorization_code") && !Objects.equals(grantType, "client_credentials") && !grantsRefreshToken) {
             throw new XrelException("Invalid grant_type");
         }
-        String unsetParameters = "Needed parameters not set:";
-        boolean error = false;
-        if (getClientId().isEmpty()) {
-            error = true;
-            unsetParameters += " client_id";
-        }
-        if (getClientSecret().isEmpty()) {
-            error = true;
-            unsetParameters += " client_secret";
-        }
-        if (Objects.equals(grantType, "authorization_code") && code.isEmpty()) {
-            error = true;
-            unsetParameters += " code";
-        }
-        if (grantsRefreshToken && (token == null || token.getRefreshToken().isEmpty())) {
-            error = true;
-            unsetParameters += " refresh_token";
-        }
-        if (error) {
-            throw new XrelException(unsetParameters);
-        }
+        checkOauth2TokenParameter(grantType, code, token, grantsRefreshToken);
         String refreshToken = null;
         String redirectUri = null;
         String scope = null;
@@ -2151,6 +2131,30 @@ public class Xrel {
         }
         response.body(); //TODO Is this correct?
         return response.body();
+    }
+    
+    private void checkOauth2TokenParameter(String grantType, String code, Token token, boolean grantsRefreshToken) {
+        String unsetParameters = "Needed parameters not set:";
+        boolean error = false;
+        if (getClientId().isEmpty()) {
+            error = true;
+            unsetParameters += " client_id";
+        }
+        if (getClientSecret().isEmpty()) {
+            error = true;
+            unsetParameters += " client_secret";
+        }
+        if (Objects.equals(grantType, "authorization_code") && code.isEmpty()) {
+            error = true;
+            unsetParameters += " code";
+        }
+        if (grantsRefreshToken && (token == null || token.getRefreshToken().isEmpty())) {
+            error = true;
+            unsetParameters += " refresh_token";
+        }
+        if (error) {
+            throw new XrelException(unsetParameters);
+        }
     }
     
     /**
