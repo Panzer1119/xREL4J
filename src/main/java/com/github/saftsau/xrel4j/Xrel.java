@@ -492,7 +492,7 @@ public class Xrel {
         
         String filterParam = null;
         if (filter != null && token == null) {
-            filterParam = String.valueOf(filter.getId());
+            filterParam = String.valueOf(filter.id());
         }
         if (filter == null && token != null) {
             filterParam = "overview";
@@ -876,7 +876,7 @@ public class Xrel {
         }
         String groupId = null;
         if (p2pGroup != null) {
-            groupId = p2pGroup.getId();
+            groupId = p2pGroup.id();
         }
         String extInfoId = null;
         if (extInfo != null) {
