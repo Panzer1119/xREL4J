@@ -41,8 +41,8 @@ import java.util.Set;
  */
 public interface XrelService {
     
-    static final String FORMAT = ".json";
-    static final String AUTHORIZATION_HEADER = "Authorization";
+    String FORMAT = ".json";
+    String AUTHORIZATION_HEADER = "Authorization";
     
     @GET("release/info" + FORMAT)
     Call<Release> releaseInfo(@Query(value = "id") String id, @Query(value = "dirname") String dirname);
