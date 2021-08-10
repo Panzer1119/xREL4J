@@ -21,51 +21,10 @@ import java.io.Serializable;
 
 /**
  * Class represents a filter, which can be used to customize the getLatestRelease() method.
+ *
+ * @param id of the {@link Filter}
+ * @param name of the {@link Filter}
  */
-public class Filter implements Serializable {
-
-  private long id;
-  private String name;
-
-  /**
-   * Gets the ID of this Filter.
-   * 
-   * @return The ID
-   */
-  public long getId() {
-    return id;
-  }
-
-  /**
-   * Sets the ID of this Filter.
-   * 
-   * @param id The ID to set
-   */
-  public void setId(long id) {
-    this.id = id;
-  }
-
-  /**
-   * Gets the name of this filter.
-   * 
-   * @return The name
-   */
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * Sets the name of this filter.
-   * 
-   * @param name The name to set
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  @Override
-  public String toString() {
-    return "Filter [getId()=" + getId() + ", getName()=" + getName() + "]";
-  }
+public record Filter(long id, String name) implements Serializable {
 
 }

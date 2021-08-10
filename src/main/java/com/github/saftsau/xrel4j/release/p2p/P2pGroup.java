@@ -21,51 +21,10 @@ import java.io.Serializable;
 
 /**
  * Class represents a group as used in the P2P section on xREL.
+ *
+ * @param id of the {@link P2pGroup}
+ * @param name of the {@link P2pGroup}
  */
-public class P2pGroup implements Serializable {
-
-  private String id;
-  private String name;
-
-  /**
-   * Gets the API ID of this P2pGroup.
-   * 
-   * @return The ID
-   */
-  public String getId() {
-    return id;
-  }
-
-  /**
-   * Sets the API ID of this P2pGroup.
-   * 
-   * @param id The ID to set
-   */
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  /**
-   * Gets the name of this P2pGroup.
-   * 
-   * @return the name
-   */
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * Sets the name of this P2pGroup.
-   * 
-   * @param name The name to set
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  @Override
-  public String toString() {
-    return "P2pGroup [getId()=" + getId() + ", getName()=" + getName() + "]";
-  }
+public record P2pGroup(String id, String name) implements Serializable {
 
 }

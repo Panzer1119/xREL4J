@@ -21,46 +21,10 @@ import java.io.Serializable;
 
 /**
  * Class represents an external source used on {@link External}.
+ *
+ * @param id of the {@link ExternalSource}
+ * @param name of the {@link ExternalSource}
  */
-public class ExternalSource implements Serializable {
-
-  private long id;
-  private String name;
-
-  /**
-   * Gets the API ID of the source of this ExternalSource.
-   * 
-   * @return The ID
-   */
-  public long getId() {
-    return id;
-  }
-
-  /**
-   * Sets the API ID of the source of this ExternalSource.
-   * 
-   * @param id The ID to set
-   */
-  public void setId(long id) {
-    this.id = id;
-  }
-
-  /**
-   * Gets the name of the source of this ExternalSource.
-   * 
-   * @return The name
-   */
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * Sets the name of the source of this ExternalSource.
-   * 
-   * @param name The name to set
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
+public record ExternalSource(long id, String name) implements Serializable {
 
 }
