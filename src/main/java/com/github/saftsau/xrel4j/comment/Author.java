@@ -21,52 +21,11 @@ package com.github.saftsau.xrel4j.comment;
 import java.io.Serializable;
 
 /**
- * Class used to represent authors used on {@link Comment}.
+ * Class used to represent authors used on {@link com.github.saftsau.xrel4j.comment.Comment}.
+ *
+ * @param id of the Author
+ * @param name of the Author
  */
-public class Author implements Serializable {
-    
-    private String id;
-    private String name;
-    
-    /**
-     * Gets the ID of the author.
-     *
-     * @return The ID
-     */
-    public String getId() {
-        return id;
-    }
-    
-    /**
-     * Sets the ID of the author.
-     *
-     * @param id The ID to set
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-    
-    /**
-     * Gets the name of the author.
-     *
-     * @return The name
-     */
-    public String getName() {
-        return name;
-    }
-    
-    /**
-     * Sets the name of the author.
-     *
-     * @param name The name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    @Override
-    public String toString() {
-        return "Author [getId()=" + getId() + ", getName()=" + getName() + "]";
-    }
-    
+public record Author(String id, String name) implements Serializable {
+
 }
