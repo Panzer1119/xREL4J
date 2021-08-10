@@ -45,11 +45,35 @@ import java.util.*;
  */
 public class Xrel {
     
-    private final int paginationPerPageMin = 5;
-    private final int paginationPerPageMax = 100;
-    private final String responseType = "code";
+    private static final String MESSAGE_ARCHIVE_MISSING = "archive missing";
+    private static final String MESSAGE_FILTER_MISSING = "filter missing";
+    private static final String MESSAGE_TOKEN_MISSING = "token missing";
+    private static final String MESSAGE_EXT_INFO_MISSING = "extInfo missing";
+    private static final String MESSAGE_CATEGORY_MISSING = "category missing";
+    private static final String MESSAGE_EXT_INFO_TYPE_MISSING = "extInfoType missing";
+    private static final String MESSAGE_RELEASE_LIST_MISSING = "releaseList missing";
+    private static final String MESSAGE_IMAGE_MISSING = "image missing";
+    private static final String MESSAGE_P2P_CATEGORY_MISSING = "p2pCategory missing";
+    private static final String MESSAGE_P2P_GROUP_MISSING = "p2pGroup missing";
+    private static final String MESSAGE_ID_DIR_MISSING = "idDir missing";
+    private static final String MESSAGE_DIR_MISSING = "dir missing";
+    private static final String MESSAGE_ID_MISSING = "id missing";
+    private static final String MESSAGE_RELEASE_MISSING = "release missing";
+    private static final String MESSAGE_P2P_RELEASE_MISSING = "p2pRelease missing";
+    private static final String MESSAGE_COUNTRY_MISSING = "country missing";
+    private static final String MESSAGE_Q_MISSING = "q missing";
+    private static final String MESSAGE_TYPE_MISSING = "type missing";
+    private static final String MESSAGE_FAVORITE_MISSING = "favorite missing";
+    private static final String MESSAGE_TEXT_MISSING = "text missing";
+    private static final String MESSAGE_GRANT_TYPE_MISSING = "grantType missing";
+    private static final String MESSAGE_CODE_MISSING = "code missing";
+    
+    private static final int PAGINATION_PER_PAGE_MIN = 5;
+    private static final int PAGINATION_PER_PAGE_MAX = 100;
+    private static final String responseType = "code";
+    
     private final RestClient restClient;
-    private Optional<String> clientId;
+    private final Optional<String> clientId;
     private Optional<String> clientSecret;
     private Optional<String> redirectUri;
     private Optional<String> state;
@@ -234,7 +258,7 @@ public class Xrel {
      * @return The minimum pagination amount
      */
     private int getPaginationPerPageMin() {
-        return paginationPerPageMin;
+        return PAGINATION_PER_PAGE_MIN;
     }
     
     /**
@@ -243,7 +267,7 @@ public class Xrel {
      * @return The maximum pagination amount
      */
     private int getPaginationPerPageMax() {
-        return paginationPerPageMax;
+        return PAGINATION_PER_PAGE_MAX;
     }
     
     /**
@@ -302,7 +326,7 @@ public class Xrel {
     
     /**
      * Normalizes the given perPage and page input. perPage is a value between
-     * {@link #paginationPerPageMin} and {@link #paginationPerPageMax} and page is a value greater
+     * {@link #PAGINATION_PER_PAGE_MIN} and {@link #PAGINATION_PER_PAGE_MAX} and page is a value greater
      * zero.
      *
      * @param perPage The perPage value to normalize
@@ -396,7 +420,7 @@ public class Xrel {
      * @see <a href="https://www.xrel.to/wiki/1680/api-release-info.html">API: release/info method</a>
      */
     private Release getReleaseInfo(String idDir, boolean useId) {
-        Objects.requireNonNull(idDir, "idDir missing");
+        Objects.requireNonNull(idDir, MESSAGE_ID_DIR_MISSING);
         final XrelService xrelService = restClient.getXrelService();
         final Call<Release> call;
         if (useId) {
@@ -424,7 +448,7 @@ public class Xrel {
      * @see <a href="https://www.xrel.to/wiki/1680/api-release-info.html">API: release/info method</a>
      */
     public Release getReleaseInfoDir(String dir) {
-        Objects.requireNonNull(dir, "dir missing");
+        Objects.requireNonNull(dir, MESSAGE_DIR_MISSING);
         
         return getReleaseInfo(dir, false);
     }
@@ -440,7 +464,7 @@ public class Xrel {
      * @see <a href="https://www.xrel.to/wiki/1680/api-release-info.html">API: release/info method</a>
      */
     public Release getReleaseInfoId(String id) {
-        Objects.requireNonNull(id, "id missing");
+        Objects.requireNonNull(id, MESSAGE_ID_MISSING);
         
         return getReleaseInfo(id, true);
     }
@@ -523,7 +547,7 @@ public class Xrel {
      * method</a>
      */
     public PaginationList<Release> getReleaseLatest(String archive, int perPage, int page) {
-        Objects.requireNonNull(archive, "archive missing");
+        Objects.requireNonNull(archive, MESSAGE_ARCHIVE_MISSING);
         
         return getReleaseLatestPrivate(archive, perPage, page, null, null);
     }
@@ -544,7 +568,7 @@ public class Xrel {
      * method</a>
      */
     public PaginationList<Release> getReleaseLatest(int perPage, int page, Filter filter) {
-        Objects.requireNonNull(filter, "filter missing");
+        Objects.requireNonNull(filter, MESSAGE_FILTER_MISSING);
         
         return getReleaseLatestPrivate(null, perPage, page, filter, null);
     }
@@ -566,8 +590,8 @@ public class Xrel {
      * method</a>
      */
     public PaginationList<Release> getReleaseLatest(String archive, int perPage, int page, Filter filter) {
-        Objects.requireNonNull(archive, "archive missing");
-        Objects.requireNonNull(filter, "filter missing");
+        Objects.requireNonNull(archive, MESSAGE_ARCHIVE_MISSING);
+        Objects.requireNonNull(filter, MESSAGE_FILTER_MISSING);
         
         return getReleaseLatestPrivate(archive, perPage, page, filter, null);
     }
@@ -588,7 +612,7 @@ public class Xrel {
      * method</a>
      */
     public PaginationList<Release> getReleaseLatest(int perPage, int page, Token token) {
-        Objects.requireNonNull(token, "token missing");
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
         
         return getReleaseLatestPrivate(null, perPage, page, null, token);
     }
@@ -610,8 +634,8 @@ public class Xrel {
      * method</a>
      */
     public PaginationList<Release> getReleaseLatest(String archive, int perPage, int page, Token token) {
-        Objects.requireNonNull(archive, "archive missing");
-        Objects.requireNonNull(token, "token missing");
+        Objects.requireNonNull(archive, MESSAGE_ARCHIVE_MISSING);
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
         
         return getReleaseLatestPrivate(archive, perPage, page, null, token);
     }
@@ -635,9 +659,9 @@ public class Xrel {
      * method</a>
      */
     public PaginationList<Release> getReleaseLatest(String archive, int perPage, int page, Filter filter, Token token) {
-        Objects.requireNonNull(archive, "archive missing");
-        Objects.requireNonNull(filter, "filter missing");
-        Objects.requireNonNull(token, "token missing");
+        Objects.requireNonNull(archive, MESSAGE_ARCHIVE_MISSING);
+        Objects.requireNonNull(filter, MESSAGE_FILTER_MISSING);
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
         
         return getReleaseLatestPrivate(archive, perPage, page, filter, token);
     }
@@ -738,8 +762,8 @@ public class Xrel {
      * release/browse_category method</a>
      */
     public PaginationList<Release> getReleaseBrowseCategory(ReleaseCategory category, String extInfoType, int perPage, int page) {
-        Objects.requireNonNull(category, "category missing");
-        Objects.requireNonNull(extInfoType, "extInfoType missing");
+        Objects.requireNonNull(category, MESSAGE_CATEGORY_MISSING);
+        Objects.requireNonNull(extInfoType, MESSAGE_EXT_INFO_TYPE_MISSING);
         
         return getReleaseBrowseCategoryPrivate(category, extInfoType, perPage, page);
     }
@@ -756,7 +780,7 @@ public class Xrel {
      * @throws XrelException If there is an error returned by the xREL API
      */
     public PaginationList<Release> getReleaseExtInfo(ExtInfo extInfo, int perPage, int page) {
-        Objects.requireNonNull(extInfo, "extInfo missing");
+        Objects.requireNonNull(extInfo, MESSAGE_EXT_INFO_MISSING);
         final int[] normalizedPageValues = normalizePageValues(perPage, page);
         Call<PaginationList<Release>> call = restClient.getXrelService()
                 .releaseExtInfo(extInfo.getId(), normalizedPageValues[0], normalizedPageValues[1]);
@@ -807,9 +831,9 @@ public class Xrel {
      * method</a>
      */
     public ReleaseAddProof postReleaseAddProof(List<Release> releaseList, String image, Token token) {
-        Objects.requireNonNull(releaseList, "releaseList missing");
-        Objects.requireNonNull(image, "image missing");
-        Objects.requireNonNull(token, "token missing");
+        Objects.requireNonNull(releaseList, MESSAGE_RELEASE_LIST_MISSING);
+        Objects.requireNonNull(image, MESSAGE_IMAGE_MISSING);
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
         if (getScope().isEmpty() || denyScope("addproof")) {
             throw new XrelException("addproof scope not provided");
         }
@@ -901,7 +925,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/3699/api-p2p-releases.html">API: p2p/releases</a>
      */
     public PaginationList<P2pRelease> getP2pReleases(int perPage, int page, P2pCategory p2pCategory) {
-        Objects.requireNonNull(p2pCategory, "p2pCategory missing");
+        Objects.requireNonNull(p2pCategory, MESSAGE_P2P_CATEGORY_MISSING);
         
         return getP2pReleasesPrivate(perPage, page, p2pCategory, null, null);
     }
@@ -922,8 +946,8 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/3699/api-p2p-releases.html">API: p2p/releases</a>
      */
     public PaginationList<P2pRelease> getP2pReleases(int perPage, int page, P2pCategory p2pCategory, P2pGroup p2pGroup) {
-        Objects.requireNonNull(p2pCategory, "p2pCategory missing");
-        Objects.requireNonNull(p2pGroup, "p2pGroup missing");
+        Objects.requireNonNull(p2pCategory, MESSAGE_P2P_CATEGORY_MISSING);
+        Objects.requireNonNull(p2pGroup, MESSAGE_P2P_GROUP_MISSING);
         
         return getP2pReleasesPrivate(perPage, page, p2pCategory, p2pGroup, null);
     }
@@ -943,7 +967,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/3699/api-p2p-releases.html">API: p2p/releases</a>
      */
     public PaginationList<P2pRelease> getP2pReleases(int perPage, int page, P2pGroup p2pGroup) {
-        Objects.requireNonNull(p2pGroup, "p2pGroup missing");
+        Objects.requireNonNull(p2pGroup, MESSAGE_P2P_GROUP_MISSING);
         
         return getP2pReleasesPrivate(perPage, page, null, p2pGroup, null);
     }
@@ -964,8 +988,8 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/3699/api-p2p-releases.html">API: p2p/releases</a>
      */
     public PaginationList<P2pRelease> getP2pReleases(int perPage, int page, P2pGroup p2pGroup, ExtInfo extInfo) {
-        Objects.requireNonNull(p2pGroup, "p2pGroup missing");
-        Objects.requireNonNull(extInfo, "extInfo missing");
+        Objects.requireNonNull(p2pGroup, MESSAGE_P2P_GROUP_MISSING);
+        Objects.requireNonNull(extInfo, MESSAGE_EXT_INFO_MISSING);
         
         return getP2pReleasesPrivate(perPage, page, null, p2pGroup, extInfo);
     }
@@ -985,7 +1009,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/3699/api-p2p-releases.html">API: p2p/releases</a>
      */
     public PaginationList<P2pRelease> getP2pReleases(int perPage, int page, ExtInfo extInfo) {
-        Objects.requireNonNull(extInfo, "extInfo missing");
+        Objects.requireNonNull(extInfo, MESSAGE_EXT_INFO_MISSING);
         
         return getP2pReleasesPrivate(perPage, page, null, null, extInfo);
     }
@@ -1007,9 +1031,9 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/3699/api-p2p-releases.html">API: p2p/releases</a>
      */
     public PaginationList<P2pRelease> getP2pReleases(int perPage, int page, P2pCategory p2pCategory, P2pGroup p2pGroup, ExtInfo extInfo) {
-        Objects.requireNonNull(p2pCategory, "p2pCategory missing");
-        Objects.requireNonNull(p2pGroup, "p2pGroup missing");
-        Objects.requireNonNull(extInfo, "extInfo missing");
+        Objects.requireNonNull(p2pCategory, MESSAGE_P2P_CATEGORY_MISSING);
+        Objects.requireNonNull(p2pGroup, MESSAGE_P2P_GROUP_MISSING);
+        Objects.requireNonNull(extInfo, MESSAGE_EXT_INFO_MISSING);
         
         return getP2pReleasesPrivate(perPage, page, p2pCategory, p2pGroup, extInfo);
     }
@@ -1048,7 +1072,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/3697/api-p2p-rls-info.html">API: p2p/rls_info</a>
      */
     private P2pRelease getP2pRlsInfo(String idDir, boolean useId) {
-        Objects.requireNonNull(idDir, "idDir missing");
+        Objects.requireNonNull(idDir, MESSAGE_ID_DIR_MISSING);
         final Call<P2pRelease> call;
         if (useId) {
             call = restClient.getXrelService().p2pRlsInfo(idDir, null);
@@ -1075,7 +1099,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/3697/api-p2p-rls-info.html">API: p2p/rls_info</a>
      */
     public P2pRelease getP2pRlsInfoDir(String dir) {
-        Objects.requireNonNull(dir, "dir missing");
+        Objects.requireNonNull(dir, MESSAGE_DIR_MISSING);
         
         return getP2pRlsInfo(dir, false);
     }
@@ -1091,7 +1115,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/3697/api-p2p-rls-info.html">API: p2p/rls_info</a>
      */
     public P2pRelease getP2pRlsInfoId(String id) {
-        Objects.requireNonNull(id, "id missing");
+        Objects.requireNonNull(id, MESSAGE_ID_MISSING);
         
         return getP2pRlsInfo(id, true);
     }
@@ -1108,8 +1132,8 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6438/api-nfo-release.html">API: nfo/release method</a>
      */
     public byte[] getNfoRelease(Release release, Token token) {
-        Objects.requireNonNull(release, "release missing");
-        Objects.requireNonNull(token, "token missing");
+        Objects.requireNonNull(release, MESSAGE_RELEASE_MISSING);
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
         if (getScope().isEmpty() || denyScope("viewnfo")) {
             throw new XrelException("viewnfo scope not provided");
         }
@@ -1136,8 +1160,8 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6437/api-nfo-p2p-rls.html">API: nfo/p2p_rls method</a>
      */
     public byte[] getNfoP2pRls(P2pRelease p2pRelease, Token token) {
-        Objects.requireNonNull(p2pRelease, "p2pRelease missing");
-        Objects.requireNonNull(token, "token missing");
+        Objects.requireNonNull(p2pRelease, MESSAGE_P2P_RELEASE_MISSING);
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
         if (getScope().isEmpty() || denyScope("viewnfo")) {
             throw new XrelException("viewnfo scope not provided");
         }
@@ -1162,7 +1186,7 @@ public class Xrel {
      * method</a>
      */
     public List<ExtInfo> getCalendarUpcoming(String country) {
-        Objects.requireNonNull(country, "country missing");
+        Objects.requireNonNull(country, MESSAGE_COUNTRY_MISSING);
         if (!country.equals("de") && !country.equals("us")) {
             throw new XrelException("country must be either de or us");
         }
@@ -1190,7 +1214,7 @@ public class Xrel {
      * method</a>
      */
     private ExtInfo getExtInfoInfoPrivate(ExtInfo extInfo, Token token) {
-        Objects.requireNonNull(extInfo, "extInfo missing");
+        Objects.requireNonNull(extInfo, MESSAGE_EXT_INFO_MISSING);
         String authorization = null;
         if (token != null) {
             authorization = token.createBearerHeader();
@@ -1217,7 +1241,7 @@ public class Xrel {
      * method</a>
      */
     public ExtInfo getExtInfoInfo(ExtInfo extInfo) {
-        Objects.requireNonNull(extInfo, "extInfo missing");
+        Objects.requireNonNull(extInfo, MESSAGE_EXT_INFO_MISSING);
         
         return getExtInfoInfoPrivate(extInfo, null);
     }
@@ -1236,8 +1260,8 @@ public class Xrel {
      * method</a>
      */
     public ExtInfo getExtInfoInfo(ExtInfo extInfo, Token token) {
-        Objects.requireNonNull(extInfo, "extInfo missing");
-        Objects.requireNonNull(token, "token missing");
+        Objects.requireNonNull(extInfo, MESSAGE_EXT_INFO_MISSING);
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
         
         return getExtInfoInfoPrivate(extInfo, token);
     }
@@ -1253,7 +1277,7 @@ public class Xrel {
      * method</a>
      */
     public void getExtInfoMedia(ExtInfo extInfo) {
-        Objects.requireNonNull(extInfo, "extInfo missing");
+        Objects.requireNonNull(extInfo, MESSAGE_EXT_INFO_MISSING);
         final Call<List<ExtInfoMedia>> call = restClient.getXrelService().extInfoMedia(extInfo.getId());
         final Response<List<ExtInfoMedia>> response;
         try {
@@ -1287,8 +1311,8 @@ public class Xrel {
      * method</a>
      */
     public void postExtInfoRate(ExtInfo extInfo, int rating, Token token) {
-        Objects.requireNonNull(extInfo, "extInfo missing");
-        Objects.requireNonNull(token, "token missing");
+        Objects.requireNonNull(extInfo, MESSAGE_EXT_INFO_MISSING);
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
         if (rating < 1 || rating > 10) {
             throw new XrelException("rating must be in the range of 1 - 10");
         }
@@ -1323,7 +1347,7 @@ public class Xrel {
      * method</a>
      */
     private ReleaseSearchResult getSearchReleasesPrivate(String q, boolean scene, boolean p2p, Integer limit) {
-        Objects.requireNonNull(q, "q missing");
+        Objects.requireNonNull(q, MESSAGE_Q_MISSING);
         if ((!p2p) && (!scene)) {
             throw new XrelException("either scene or p2p must be set to true");
         }
@@ -1357,7 +1381,7 @@ public class Xrel {
      * method</a>
      */
     public ReleaseSearchResult getSearchReleases(String q, boolean scene, boolean p2p, int limit) {
-        Objects.requireNonNull(q, "q missing");
+        Objects.requireNonNull(q, MESSAGE_Q_MISSING);
         
         if ((!p2p) && (!scene)) {
             throw new XrelException("either scene or p2p must be set to true");
@@ -1386,7 +1410,7 @@ public class Xrel {
      * method</a>
      */
     public ReleaseSearchResult getSearchReleases(String q, boolean scene, boolean p2p) {
-        Objects.requireNonNull(q, "q missing");
+        Objects.requireNonNull(q, MESSAGE_Q_MISSING);
         
         if ((!p2p) && (!scene)) {
             throw new XrelException("either scene or p2p must be set to true");
@@ -1412,7 +1436,7 @@ public class Xrel {
      * method</a>
      */
     private ExtInfoSearchResult getSearchExtInfoPrivate(String q, String type, Integer limit) {
-        Objects.requireNonNull(q, "q missing");
+        Objects.requireNonNull(q, MESSAGE_Q_MISSING);
         if (limit != null && limit < 1) {
             throw new XrelException("limit must be either -1 or greater than 1");
         }
@@ -1440,7 +1464,7 @@ public class Xrel {
      * method</a>
      */
     public ExtInfoSearchResult getSearchExtInfo(String q) {
-        Objects.requireNonNull(q, "q missing");
+        Objects.requireNonNull(q, MESSAGE_Q_MISSING);
         
         return getSearchExtInfoPrivate(q, null, null);
     }
@@ -1460,7 +1484,7 @@ public class Xrel {
      * method</a>
      */
     public ExtInfoSearchResult getSearchExtInfo(String q, int limit) {
-        Objects.requireNonNull(q, "q missing");
+        Objects.requireNonNull(q, MESSAGE_Q_MISSING);
         
         if (limit < 1) {
             throw new XrelException("limit must be 1 or greater");
@@ -1485,8 +1509,8 @@ public class Xrel {
      * method</a>
      */
     public ExtInfoSearchResult getSearchExtInfo(String q, String type) {
-        Objects.requireNonNull(q, "q missing");
-        Objects.requireNonNull(type, "type missing");
+        Objects.requireNonNull(q, MESSAGE_Q_MISSING);
+        Objects.requireNonNull(type, MESSAGE_TYPE_MISSING);
         
         return getSearchExtInfoPrivate(q, type, null);
     }
@@ -1508,8 +1532,8 @@ public class Xrel {
      * method</a>
      */
     public ExtInfoSearchResult getSearchExtInfo(String q, String type, int limit) {
-        Objects.requireNonNull(q, "q missing");
-        Objects.requireNonNull(type, "type missing");
+        Objects.requireNonNull(q, MESSAGE_Q_MISSING);
+        Objects.requireNonNull(type, MESSAGE_TYPE_MISSING);
         
         if (limit < 1) {
             throw new XrelException("limit must be 1 or greater");
@@ -1529,7 +1553,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/1754/api-favs-lists.html">API: favs/lists method</a>
      */
     public List<Favorite> getFavsLists(Token token) {
-        Objects.requireNonNull(token, "token missing");
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
         final Call<List<Favorite>> call = restClient.getXrelService().favsLists(token.createBearerHeader());
         final Response<List<Favorite>> response;
         try {
@@ -1554,8 +1578,8 @@ public class Xrel {
      * method</a>
      */
     public void getFavsListEntries(Favorite favorite, boolean getReleases, Token token) {
-        Objects.requireNonNull(favorite, "favorite missing");
-        Objects.requireNonNull(token, "token missing");
+        Objects.requireNonNull(favorite, MESSAGE_FAVORITE_MISSING);
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
         final Call<List<ExtInfo>> call = restClient.getXrelService().favsListEntries(token.createBearerHeader(), favorite.getId(), getReleases);
         final Response<List<ExtInfo>> response;
         try {
@@ -1593,9 +1617,9 @@ public class Xrel {
      * favs/list_delentry method</a>
      */
     private FavoriteAddDelEntry postFavsListAddDelEntry(Favorite favorite, ExtInfo extInfo, Token token, boolean delete) {
-        Objects.requireNonNull(favorite, "favorite missing");
-        Objects.requireNonNull(extInfo, "extInfo missing");
-        Objects.requireNonNull(token, "token missing");
+        Objects.requireNonNull(favorite, MESSAGE_FAVORITE_MISSING);
+        Objects.requireNonNull(extInfo, MESSAGE_EXT_INFO_MISSING);
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
         final Call<FavoriteAddDelEntry> call;
         if (delete) {
             call = restClient.getXrelService().favsListDelEntry(token.createBearerHeader(), favorite.getId(), extInfo.getId());
@@ -1625,9 +1649,9 @@ public class Xrel {
      * favs/list_addentry method</a>
      */
     public FavoriteAddDelEntry postFavsListAddEntry(Favorite favorite, ExtInfo extInfo, Token token) {
-        Objects.requireNonNull(favorite, "favorite missing");
-        Objects.requireNonNull(extInfo, "extInfo missing");
-        Objects.requireNonNull(token, "token missing");
+        Objects.requireNonNull(favorite, MESSAGE_FAVORITE_MISSING);
+        Objects.requireNonNull(extInfo, MESSAGE_EXT_INFO_MISSING);
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
         
         return postFavsListAddDelEntry(favorite, extInfo, token, false);
     }
@@ -1646,9 +1670,9 @@ public class Xrel {
      * favs/list_delentry method</a>
      */
     public FavoriteAddDelEntry postFavsListDelEntry(Favorite favorite, ExtInfo extInfo, Token token) {
-        Objects.requireNonNull(favorite, "favorite missing");
-        Objects.requireNonNull(extInfo, "extInfo missing");
-        Objects.requireNonNull(token, "token missing");
+        Objects.requireNonNull(favorite, MESSAGE_FAVORITE_MISSING);
+        Objects.requireNonNull(extInfo, MESSAGE_EXT_INFO_MISSING);
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
         
         return postFavsListAddDelEntry(favorite, extInfo, token, true);
     }
@@ -1668,8 +1692,8 @@ public class Xrel {
      * favs/list_markread method</a>
      */
     private FavoriteMarkRead postFavsListMarkRead(Favorite favorite, Release release, P2pRelease p2pRelease, Token token) {
-        Objects.requireNonNull(favorite, "favorite missing");
-        Objects.requireNonNull(token, "token missing");
+        Objects.requireNonNull(favorite, MESSAGE_FAVORITE_MISSING);
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
         String releaseId;
         String type;
         if (release != null) {
@@ -1704,9 +1728,9 @@ public class Xrel {
      * favs/list_markread method</a>
      */
     public FavoriteMarkRead postFavsListMarkRead(Favorite favorite, Release release, Token token) {
-        Objects.requireNonNull(favorite, "favorite missing");
-        Objects.requireNonNull(release, "release missing");
-        Objects.requireNonNull(token, "token missing");
+        Objects.requireNonNull(favorite, MESSAGE_FAVORITE_MISSING);
+        Objects.requireNonNull(release, MESSAGE_RELEASE_MISSING);
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
         
         return postFavsListMarkRead(favorite, release, null, token);
     }
@@ -1725,9 +1749,9 @@ public class Xrel {
      * favs/list_markread method</a>
      */
     public FavoriteMarkRead postFavsListMarkRead(Favorite favorite, P2pRelease p2pRelease, Token token) {
-        Objects.requireNonNull(favorite, "favorite missing");
-        Objects.requireNonNull(p2pRelease, "p2pRelease missing");
-        Objects.requireNonNull(token, "token missing");
+        Objects.requireNonNull(favorite, MESSAGE_FAVORITE_MISSING);
+        Objects.requireNonNull(p2pRelease, MESSAGE_P2P_RELEASE_MISSING);
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
         
         return postFavsListMarkRead(favorite, null, p2pRelease, token);
     }
@@ -1782,7 +1806,7 @@ public class Xrel {
      * method</a>
      */
     public PaginationList<Comment> getCommentsGet(Release release, int perPage, int page) {
-        Objects.requireNonNull(release, "release missing");
+        Objects.requireNonNull(release, MESSAGE_RELEASE_MISSING);
         
         return getCommentsGet(release, null, perPage, page);
     }
@@ -1801,7 +1825,7 @@ public class Xrel {
      * method</a>
      */
     public PaginationList<Comment> getCommentsGet(P2pRelease p2pRelease, int perPage, int page) {
-        Objects.requireNonNull(p2pRelease, "p2pRelease missing");
+        Objects.requireNonNull(p2pRelease, MESSAGE_P2P_RELEASE_MISSING);
         
         return getCommentsGet(null, p2pRelease, perPage, page);
     }
@@ -1829,7 +1853,7 @@ public class Xrel {
      * method</a>
      */
     private Comment postCommentsAdd(Release release, P2pRelease p2pRelease, String text, Integer videoRating, Integer audioRating, Token token) {
-        Objects.requireNonNull(token, "token missing");
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
         String id;
         String type;
         if (release != null) {
@@ -1869,8 +1893,8 @@ public class Xrel {
      * method</a>
      */
     public Comment postCommentsAdd(Release release, int videoRating, int audioRating, Token token) {
-        Objects.requireNonNull(release, "release missing");
-        Objects.requireNonNull(token, "token missing");
+        Objects.requireNonNull(release, MESSAGE_RELEASE_MISSING);
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
         
         if (videoRating < 1 || audioRating < 1 || videoRating > 10 || audioRating > 10) {
             throw new XrelException("ratings must be between 1 and 10");
@@ -1895,9 +1919,9 @@ public class Xrel {
      * method</a>
      */
     public Comment postCommentsAdd(Release release, String text, Token token) {
-        Objects.requireNonNull(release, "release missing");
-        Objects.requireNonNull(token, "token missing");
-        Objects.requireNonNull(text, "text missing");
+        Objects.requireNonNull(release, MESSAGE_RELEASE_MISSING);
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
+        Objects.requireNonNull(text, MESSAGE_TEXT_MISSING);
         
         return postCommentsAdd(release, null, text, null, null, token);
     }
@@ -1924,9 +1948,9 @@ public class Xrel {
      * method</a>
      */
     public Comment postCommentsAdd(Release release, String text, int videoRating, int audioRating, Token token) {
-        Objects.requireNonNull(release, "release missing");
-        Objects.requireNonNull(token, "token missing");
-        Objects.requireNonNull(text, "text missing");
+        Objects.requireNonNull(release, MESSAGE_RELEASE_MISSING);
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
+        Objects.requireNonNull(text, MESSAGE_TEXT_MISSING);
         
         if (videoRating < 1 || audioRating < 1 || videoRating > 10 || audioRating > 10) {
             throw new XrelException("ratings must be between 1 and 10");
@@ -1954,8 +1978,8 @@ public class Xrel {
      * method</a>
      */
     public Comment postCommentsAdd(P2pRelease p2pRelease, int videoRating, int audioRating, Token token) {
-        Objects.requireNonNull(p2pRelease, "p2pRelease missing");
-        Objects.requireNonNull(token, "token missing");
+        Objects.requireNonNull(p2pRelease, MESSAGE_P2P_RELEASE_MISSING);
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
         
         if (videoRating < 1 || audioRating < 1 || videoRating > 10 || audioRating > 10) {
             throw new XrelException("ratings must be between 1 and 10");
@@ -1979,9 +2003,9 @@ public class Xrel {
      * method</a>
      */
     public Comment postCommentsAdd(P2pRelease p2pRelease, String text, Token token) {
-        Objects.requireNonNull(p2pRelease, "p2pRelease missing");
-        Objects.requireNonNull(token, "token missing");
-        Objects.requireNonNull(text, "text missing");
+        Objects.requireNonNull(p2pRelease, MESSAGE_P2P_RELEASE_MISSING);
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
+        Objects.requireNonNull(text, MESSAGE_TEXT_MISSING);
         
         return postCommentsAdd(null, p2pRelease, text, null, null, token);
     }
@@ -2007,9 +2031,9 @@ public class Xrel {
      * method</a>
      */
     public Comment postCommentsAdd(P2pRelease p2pRelease, String text, int videoRating, int audioRating, Token token) {
-        Objects.requireNonNull(p2pRelease, "p2pRelease missing");
-        Objects.requireNonNull(token, "token missing");
-        Objects.requireNonNull(text, "text missing");
+        Objects.requireNonNull(p2pRelease, MESSAGE_P2P_RELEASE_MISSING);
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
+        Objects.requireNonNull(text, MESSAGE_TEXT_MISSING);
         
         if (videoRating < 1 || audioRating < 1 || videoRating > 10 || audioRating > 10) {
             throw new XrelException("ratings must be between 1 and 10");
@@ -2029,7 +2053,7 @@ public class Xrel {
      * @see <a href= "https://www.xrel.to/wiki/6441/api-user-info.html">API: user/info method</a>
      */
     public User getUserInfo(Token token) {
-        Objects.requireNonNull(token, "token missing");
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
         final Call<User> call = restClient.getXrelService().userInfo(token.createBearerHeader());
         final Response<User> response;
         try {
@@ -2072,7 +2096,7 @@ public class Xrel {
      * @see <a href="https://www.xrel.to/wiki/6436/api-oauth2.html">API: OAuth 2.0</a>
      */
     private Token postOauth2TokenPrivate(String grantType, String code, Token token) {
-        Objects.requireNonNull(grantType, "grantType missing");
+        Objects.requireNonNull(grantType, MESSAGE_GRANT_TYPE_MISSING);
         if (!Objects.equals(grantType, "authorization_code") && !Objects.equals(grantType, "client_credentials") && !Objects.equals(grantType, "refresh_token")) {
             throw new XrelException("Invalid grant_type");
         }
@@ -2134,8 +2158,8 @@ public class Xrel {
      * @see <a href="https://www.xrel.to/wiki/6436/api-oauth2.html">API: OAuth 2.0</a>
      */
     public Token postOauth2Token(String grantType, Token token) {
-        Objects.requireNonNull(grantType, "grantType missing");
-        Objects.requireNonNull(token, "token missing");
+        Objects.requireNonNull(grantType, MESSAGE_GRANT_TYPE_MISSING);
+        Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
         
         return postOauth2TokenPrivate(grantType, null, token);
     }
@@ -2154,8 +2178,8 @@ public class Xrel {
      * @see <a href="https://www.xrel.to/wiki/6436/api-oauth2.html">API: OAuth 2.0</a>
      */
     public Token postOauth2Token(String grantType, String code) {
-        Objects.requireNonNull(grantType, "grantType missing");
-        Objects.requireNonNull(code, "code missing");
+        Objects.requireNonNull(grantType, MESSAGE_GRANT_TYPE_MISSING);
+        Objects.requireNonNull(code, MESSAGE_CODE_MISSING);
         
         return postOauth2TokenPrivate(grantType, code, null);
     }
