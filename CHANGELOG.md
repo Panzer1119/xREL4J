@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/Panzer1119/xREL4J/compare/v1.3.1...v1.4.0) (2021-08-10)
+
+
+### Features
+
+* use ResponseInterceptor.java objects in RestClient.java instead of a single instance to keep track of ratelimits for each Xrel instance ([50415de](https://github.com/Panzer1119/xREL4J/commit/50415de9fc65de59e5dff52bc67f85b6279756c2))
+
+
+### Bug Fixes
+
+* use correct accessor methods in Xrel.java after converting some Classes to Records ([d739512](https://github.com/Panzer1119/xREL4J/commit/d739512c7f42df0439724341abacc27c6939c9cc))
+
 ### [1.3.1](https://github.com/Panzer1119/xREL4J/compare/v1.3.0...v1.3.1) (2021-08-09)
 
 
