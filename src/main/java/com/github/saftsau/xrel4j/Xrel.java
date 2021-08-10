@@ -68,9 +68,16 @@ public class Xrel {
     private static final String MESSAGE_GRANT_TYPE_MISSING = "grantType missing";
     private static final String MESSAGE_CODE_MISSING = "code missing";
     
+    private static final String EXCEPTION_MESSAGE_EITHER_SCENE_OR_P2P_MUST_BE_SET_TO_TRUE = "either scene or p2p must be set to true";
+    private static final String EXCEPTION_MESSAGE_LIMIT_MUST_BE_1_OR_GREATER = "limit must be 1 or greater";
+    private static final String EXCEPTION_MESSAGE_RATINGS_MUST_BE_BETWEEN_1_AND_10 = "ratings must be between 1 and 10";
+    
+    private static final String RELEASE_TYPE_SCENE = "release";
+    private static final String RELEASE_TYPE_P2P = "p2p_rls";
+    
     private static final int PAGINATION_PER_PAGE_MIN = 5;
     private static final int PAGINATION_PER_PAGE_MAX = 100;
-    private static final String responseType = "code";
+    private static final String RESPONSE_TYPE = "code";
     
     private final RestClient restClient;
     private final Optional<String> clientId;
@@ -276,7 +283,7 @@ public class Xrel {
      * @return The response type
      */
     private String getResponseType() {
-        return responseType;
+        return RESPONSE_TYPE;
     }
     
     /**
@@ -1349,7 +1356,7 @@ public class Xrel {
     private ReleaseSearchResult getSearchReleasesPrivate(String q, boolean scene, boolean p2p, Integer limit) {
         Objects.requireNonNull(q, MESSAGE_Q_MISSING);
         if ((!p2p) && (!scene)) {
-            throw new XrelException("either scene or p2p must be set to true");
+            throw new XrelException(EXCEPTION_MESSAGE_EITHER_SCENE_OR_P2P_MUST_BE_SET_TO_TRUE);
         }
         if (limit != null && limit < 1) {
             throw new XrelException("limit must be either null or greater than 1");
@@ -1384,11 +1391,11 @@ public class Xrel {
         Objects.requireNonNull(q, MESSAGE_Q_MISSING);
         
         if ((!p2p) && (!scene)) {
-            throw new XrelException("either scene or p2p must be set to true");
+            throw new XrelException(EXCEPTION_MESSAGE_EITHER_SCENE_OR_P2P_MUST_BE_SET_TO_TRUE);
         }
         
         if (limit < 1) {
-            throw new XrelException("limit must be 1 or greater");
+            throw new XrelException(EXCEPTION_MESSAGE_LIMIT_MUST_BE_1_OR_GREATER);
         }
         
         return getSearchReleasesPrivate(q, scene, p2p, limit);
@@ -1413,7 +1420,7 @@ public class Xrel {
         Objects.requireNonNull(q, MESSAGE_Q_MISSING);
         
         if ((!p2p) && (!scene)) {
-            throw new XrelException("either scene or p2p must be set to true");
+            throw new XrelException(EXCEPTION_MESSAGE_EITHER_SCENE_OR_P2P_MUST_BE_SET_TO_TRUE);
         }
         
         return getSearchReleasesPrivate(q, scene, p2p, null);
@@ -1487,7 +1494,7 @@ public class Xrel {
         Objects.requireNonNull(q, MESSAGE_Q_MISSING);
         
         if (limit < 1) {
-            throw new XrelException("limit must be 1 or greater");
+            throw new XrelException(EXCEPTION_MESSAGE_LIMIT_MUST_BE_1_OR_GREATER);
         }
         
         return getSearchExtInfoPrivate(q, null, limit);
@@ -1536,7 +1543,7 @@ public class Xrel {
         Objects.requireNonNull(type, MESSAGE_TYPE_MISSING);
         
         if (limit < 1) {
-            throw new XrelException("limit must be 1 or greater");
+            throw new XrelException(EXCEPTION_MESSAGE_LIMIT_MUST_BE_1_OR_GREATER);
         }
         
         return getSearchExtInfoPrivate(q, type, limit);
@@ -1698,10 +1705,10 @@ public class Xrel {
         String type;
         if (release != null) {
             releaseId = release.getId();
-            type = "release";
+            type = RELEASE_TYPE_SCENE;
         } else {
             releaseId = p2pRelease.getId();
-            type = "p2p_rls";
+            type = RELEASE_TYPE_P2P;
         }
         final Call<FavoriteMarkRead> call = restClient.getXrelService()
                 .favsListMarkread(token.createBearerHeader(), favorite.getId(), releaseId, type);
@@ -1776,10 +1783,10 @@ public class Xrel {
         String type;
         if (release != null) {
             id = release.getId();
-            type = "release";
+            type = RELEASE_TYPE_SCENE;
         } else {
             id = p2pRelease.getId();
-            type = "p2p_rls";
+            type = RELEASE_TYPE_P2P;
         }
         final Call<PaginationList<Comment>> call = restClient.getXrelService()
                 .commentsGet(id, type, normalizedPageValues[0], normalizedPageValues[1]);
@@ -1858,10 +1865,10 @@ public class Xrel {
         String type;
         if (release != null) {
             id = release.getId();
-            type = "release";
+            type = RELEASE_TYPE_SCENE;
         } else {
             id = p2pRelease.getId();
-            type = "p2p_rls";
+            type = RELEASE_TYPE_P2P;
         }
         final Call<Comment> call = restClient.getXrelService().commentsAdd(token.createBearerHeader(), id, type, text, videoRating, audioRating);
         final Response<Comment> response;
@@ -1897,7 +1904,7 @@ public class Xrel {
         Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
         
         if (videoRating < 1 || audioRating < 1 || videoRating > 10 || audioRating > 10) {
-            throw new XrelException("ratings must be between 1 and 10");
+            throw new XrelException(EXCEPTION_MESSAGE_RATINGS_MUST_BE_BETWEEN_1_AND_10);
         }
         
         return postCommentsAdd(release, null, null, videoRating, audioRating, token);
@@ -1953,7 +1960,7 @@ public class Xrel {
         Objects.requireNonNull(text, MESSAGE_TEXT_MISSING);
         
         if (videoRating < 1 || audioRating < 1 || videoRating > 10 || audioRating > 10) {
-            throw new XrelException("ratings must be between 1 and 10");
+            throw new XrelException(EXCEPTION_MESSAGE_RATINGS_MUST_BE_BETWEEN_1_AND_10);
         }
         
         return postCommentsAdd(release, null, text, videoRating, audioRating, token);
@@ -1982,7 +1989,7 @@ public class Xrel {
         Objects.requireNonNull(token, MESSAGE_TOKEN_MISSING);
         
         if (videoRating < 1 || audioRating < 1 || videoRating > 10 || audioRating > 10) {
-            throw new XrelException("ratings must be between 1 and 10");
+            throw new XrelException(EXCEPTION_MESSAGE_RATINGS_MUST_BE_BETWEEN_1_AND_10);
         }
         
         return postCommentsAdd(null, p2pRelease, null, videoRating, audioRating, token);
@@ -2036,7 +2043,7 @@ public class Xrel {
         Objects.requireNonNull(text, MESSAGE_TEXT_MISSING);
         
         if (videoRating < 1 || audioRating < 1 || videoRating > 10 || audioRating > 10) {
-            throw new XrelException("ratings must be between 1 and 10");
+            throw new XrelException(EXCEPTION_MESSAGE_RATINGS_MUST_BE_BETWEEN_1_AND_10);
         }
         
         return postCommentsAdd(null, p2pRelease, text, videoRating, audioRating, token);
