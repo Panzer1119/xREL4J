@@ -41,95 +41,92 @@ import java.util.Set;
  */
 public interface XrelService {
     
-    String FORMAT = ".json";
-    String AUTHORIZATION_HEADER = "Authorization";
-    
-    @GET("release/info" + FORMAT)
+    @GET("release/info" + Xrel.FORMAT)
     Call<Release> releaseInfo(@Query(value = "id") String id, @Query(value = "dirname") String dirname);
     
-    @GET("release/latest" + FORMAT)
-    Call<PaginationList<Release>> releaseLatest(@Header(AUTHORIZATION_HEADER) String bearerToken, @Query(value = "per_page") int perPage, @Query(value = "page") int page, @Query(value = "archive") String archive, @Query(value = "filter") String filter);
+    @GET("release/latest" + Xrel.FORMAT)
+    Call<PaginationList<Release>> releaseLatest(@Header(Xrel.AUTHORIZATION_HEADER) String bearerToken, @Query(value = "per_page") int perPage, @Query(value = "page") int page, @Query(value = "archive") String archive, @Query(value = "filter") String filter);
     
-    @GET("release/categories" + FORMAT)
+    @GET("release/categories" + Xrel.FORMAT)
     Call<Set<ReleaseCategory>> releaseCategories();
     
-    @GET("release/browse_category" + FORMAT)
+    @GET("release/browse_category" + Xrel.FORMAT)
     Call<PaginationList<Release>> releaseBrowseCategory(@Query(value = "category_name") String categoryName, @Query(value = "ext_info_type") String extInfoType, @Query(value = "per_page") int perPage, @Query(value = "page") int page);
     
-    @GET("release/ext_info" + FORMAT)
+    @GET("release/ext_info" + Xrel.FORMAT)
     Call<PaginationList<Release>> releaseExtInfo(@Query(value = "id") String id, @Query(value = "per_page") int perPage, @Query(value = "page") int page);
     
-    @GET("release/filters" + FORMAT)
+    @GET("release/filters" + Xrel.FORMAT)
     Call<Set<Filter>> releaseFilters();
     
     @FormUrlEncoded
-    @POST("release/addproof" + FORMAT)
+    @POST("release/addproof" + Xrel.FORMAT)
     Call<ReleaseAddProof> releaseAddproof(@Header("Authorization") String authorization, @Field("id") Set<String> id, @Field("image") String image);
     
-    @GET("p2p/releases" + FORMAT)
+    @GET("p2p/releases" + Xrel.FORMAT)
     Call<PaginationList<P2pRelease>> p2pReleases(@Query(value = "per_page") int perPage, @Query(value = "page") int page, @Query(value = "category_id") String categoryId, @Query(value = "group_id") String groupId, @Query(value = "ext_info_id") String extInfoId);
     
-    @GET("p2p/categories" + FORMAT)
+    @GET("p2p/categories" + Xrel.FORMAT)
     Call<Set<P2pCategory>> p2pCategories();
     
-    @GET("p2p/rls_info" + FORMAT)
+    @GET("p2p/rls_info" + Xrel.FORMAT)
     Call<P2pRelease> p2pRlsInfo(@Query(value = "id") String id, @Query(value = "dirname") String dirname);
     
-    @GET("nfo/release" + FORMAT)
+    @GET("nfo/release" + Xrel.FORMAT)
     Call<ResponseBody> nfoRelease(@Header("Authorization") String authorization, @Query(value = "id") String id);
     
-    @GET("nfo/p2p_rls" + FORMAT)
+    @GET("nfo/p2p_rls" + Xrel.FORMAT)
     Call<ResponseBody> nfoP2pRelease(@Header("Authorization") String authorization, @Query(value = "id") String id);
     
-    @GET("calendar/upcoming" + FORMAT)
+    @GET("calendar/upcoming" + Xrel.FORMAT)
     Call<List<ExtInfo>> calendarUpcoming(@Query(value = "country") String country);
     
-    @GET("ext_info/info" + FORMAT)
+    @GET("ext_info/info" + Xrel.FORMAT)
     Call<ExtInfo> extInfoInfo(@Header("Authorization") String authorization, @Query(value = "id") String id);
     
-    @GET("ext_info/media" + FORMAT)
+    @GET("ext_info/media" + Xrel.FORMAT)
     Call<List<ExtInfoMedia>> extInfoMedia(@Query(value = "id") String id);
     
     @FormUrlEncoded
-    @POST("ext_info/rate" + FORMAT)
+    @POST("ext_info/rate" + Xrel.FORMAT)
     Call<ExtInfo> extInfoRate(@Header("Authorization") String authorization, @Field("id") String id, @Field("rating") int rating);
     
-    @GET("search/releases" + FORMAT)
+    @GET("search/releases" + Xrel.FORMAT)
     Call<ReleaseSearchResult> searchReleases(@Query(value = "q") String q, @Query(value = "scene") boolean scene, @Query(value = "p2p") boolean p2p, @Query(value = "limit") Integer limit);
     
-    @GET("search/ext_info" + FORMAT)
+    @GET("search/ext_info" + Xrel.FORMAT)
     Call<ExtInfoSearchResult> searchExtInfo(@Query(value = "q") String q, @Query(value = "type") String type, @Query(value = "limit") Integer limit);
     
-    @GET("favs/lists" + FORMAT)
+    @GET("favs/lists" + Xrel.FORMAT)
     Call<List<Favorite>> favsLists(@Header("Authorization") String authorization);
     
-    @GET("favs/list_entries" + FORMAT)
+    @GET("favs/list_entries" + Xrel.FORMAT)
     Call<List<ExtInfo>> favsListEntries(@Header("Authorization") String authorization, @Query(value = "id") long id, @Query(value = "get_releases") boolean getReleases);
     
     @FormUrlEncoded
-    @POST("favs/list_addentry" + FORMAT)
+    @POST("favs/list_addentry" + Xrel.FORMAT)
     Call<FavoriteAddDelEntry> favsListAddEntry(@Header("Authorization") String authorization, @Field("id") long id, @Field("ext_info_id") String extInfoId);
     
     @FormUrlEncoded
-    @POST("favs/list_delentry" + FORMAT)
+    @POST("favs/list_delentry" + Xrel.FORMAT)
     Call<FavoriteAddDelEntry> favsListDelEntry(@Header("Authorization") String authorization, @Field("id") long id, @Field("ext_info_id") String extInfoId);
     
     @FormUrlEncoded
-    @POST("favs/list_markread" + FORMAT)
+    @POST("favs/list_markread" + Xrel.FORMAT)
     Call<FavoriteMarkRead> favsListMarkread(@Header("Authorization") String authorization, @Field("id") long id, @Field("release_id") String releaseId, @Field("type") String type);
     
-    @GET("comments/get" + FORMAT)
+    @GET("comments/get" + Xrel.FORMAT)
     Call<PaginationList<Comment>> commentsGet(@Query(value = "id") String id, @Query(value = "type") String type, @Query(value = "per_page") int perPage, @Query(value = "page") int page);
     
     @FormUrlEncoded
-    @POST("comments/add" + FORMAT)
+    @POST("comments/add" + Xrel.FORMAT)
     Call<Comment> commentsAdd(@Header("Authorization") String authorization, @Field(value = "id") String id, @Field(value = "type") String type, @Field(value = "text") String text, @Field(value = "video_rating") Integer videoRating, @Field(value = "audio_rating") Integer audioRating);
     
-    @POST("user/info" + FORMAT)
+    @POST("user/info" + Xrel.FORMAT)
     Call<User> userInfo(@Header("Authorization") String authorization);
     
     @FormUrlEncoded
-    @POST("oauth2/token" + FORMAT)
+    @POST("oauth2/token" + Xrel.FORMAT)
     Call<Token> oauth2Token(@Field(value = "grant_type") String grantType, @Field(value = "client_id") String clientId, @Field(value = "client_secret") String clientSecret, @Field(value = "code") String code, @Field(value = "redirect_uri") String redirectUri, @Field(value = "refresh_token") String refreshToken, @Field(value = "scope") String scope);
     
 }

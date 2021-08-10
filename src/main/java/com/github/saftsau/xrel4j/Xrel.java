@@ -45,6 +45,9 @@ import java.util.*;
  */
 public class Xrel {
     
+    protected static final String FORMAT = ".json";
+    protected static final String AUTHORIZATION_HEADER = "Authorization";
+    
     private static final String MESSAGE_ARCHIVE_MISSING = "archive missing";
     private static final String MESSAGE_FILTER_MISSING = "filter missing";
     private static final String MESSAGE_TOKEN_MISSING = "token missing";
