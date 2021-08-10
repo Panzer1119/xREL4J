@@ -2113,19 +2113,19 @@ public class Xrel {
         }
         checkOauth2TokenParameter(grantType, code, token, grantsRefreshToken);
         String refreshToken = null;
-        String redirectUri = null;
-        String scope = null;
+        String redirectUriString = null;
+        String scopeString = null;
         if (grantsRefreshToken) {
             refreshToken = token.getRefreshToken();
         }
         if (!grantsRefreshToken && getRedirectUri().isPresent()) {
-            redirectUri = getRedirectUri().get();
+            redirectUriString = getRedirectUri().get();
         }
         if (getScope().isPresent() && getScope().get().length > 0) {
-            scope = String.join(" ", getScope().get());
+            scopeString = String.join(" ", getScope().get());
         }
         final Call<Token> call = restClient.getXrelService()
-                .oauth2Token(grantType, getClientId().get(), getClientSecret().get(), code, redirectUri, refreshToken, scope);
+                .oauth2Token(grantType, getClientId().get(), getClientSecret().get(), code, redirectUriString, refreshToken, scopeString);
         final Response<Token> response;
         try {
             response = call.execute();
