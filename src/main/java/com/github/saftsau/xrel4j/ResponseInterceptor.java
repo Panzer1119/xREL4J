@@ -41,17 +41,17 @@ class ResponseInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         final Response response = chain.proceed(chain.request());
         setResponseCode(response.code());
-        final String xRateLimitLimit = response.headers().get("X-RateLimit-Limit");
-        if (xRateLimitLimit != null) {
-            setXRateLimitLimit(Integer.parseInt(xRateLimitLimit));
+        final String limit = response.headers().get("X-RateLimit-Limit");
+        if (limit != null) {
+            setXRateLimitLimit(Integer.parseInt(limit));
         }
-        final String xRateLimitRemaining = response.headers().get("X-RateLimit-Remaining");
-        if (xRateLimitRemaining != null) {
-            setXRateLimitRemaining(Integer.parseInt(xRateLimitRemaining));
+        final String remaining = response.headers().get("X-RateLimit-Remaining");
+        if (remaining != null) {
+            setXRateLimitRemaining(Integer.parseInt(remaining));
         }
-        final String xRateLimitReset = response.headers().get("X-RateLimit-Reset");
-        if (xRateLimitReset != null) {
-            setXRateLimitReset(Integer.parseInt(xRateLimitReset));
+        final String reset = response.headers().get("X-RateLimit-Reset");
+        if (reset != null) {
+            setXRateLimitReset(Integer.parseInt(reset));
         }
         // Try to handle an error. We have to rely on this method because currently the status codes
         // returned by the xREL API can't be trusted, e.g. returning 2xx responses for errors.
