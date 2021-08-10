@@ -2104,7 +2104,8 @@ public class Xrel {
      */
     private Token postOauth2TokenPrivate(String grantType, String code, Token token) {
         Objects.requireNonNull(grantType, MESSAGE_GRANT_TYPE_MISSING);
-        if (!Objects.equals(grantType, "authorization_code") && !Objects.equals(grantType, "client_credentials") && !Objects.equals(grantType, "refresh_token")) {
+        final boolean grantsRefreshToken = Objects.equals(grantType, "refresh_token");
+        if (!Objects.equals(grantType, "authorization_code") && !Objects.equals(grantType, "client_credentials") && !grantsRefreshToken) {
             throw new XrelException("Invalid grant_type");
         }
         String unsetParameters = "Needed parameters not set:";
@@ -2121,7 +2122,7 @@ public class Xrel {
             error = true;
             unsetParameters += " code";
         }
-        if (Objects.equals(grantType, "refresh_token") && (token == null || token.getRefreshToken().isEmpty())) {
+        if (grantsRefreshToken && (token == null || token.getRefreshToken().isEmpty())) {
             error = true;
             unsetParameters += " refresh_token";
         }
@@ -2131,10 +2132,10 @@ public class Xrel {
         String refreshToken = null;
         String redirectUri = null;
         String scope = null;
-        if (Objects.equals(grantType, "refresh_token")) {
+        if (grantsRefreshToken) {
             refreshToken = token.getRefreshToken();
         }
-        if (!Objects.equals(grantType, "refresh_token") && getRedirectUri().isPresent()) {
+        if (!grantsRefreshToken && getRedirectUri().isPresent()) {
             redirectUri = getRedirectUri().get();
         }
         if (getScope().isPresent() && getScope().get().length > 0) {
