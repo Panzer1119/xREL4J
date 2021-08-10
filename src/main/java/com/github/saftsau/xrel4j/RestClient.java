@@ -24,15 +24,18 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 public class RestClient {
     
     private static final class InstanceHolder {
-        static final RestClient INSTANCE = new RestClient(createHttpClientBuilder());
+        static final RestClient INSTANCE = create();
     }
     
     public static final String BASE_XREL_URL = "https://api.xrel.to/v2/";
     
+    private final OkHttpClient httpClient;
+    private final ResponseInterceptor responseInterceptor;
     private final Retrofit retrofit;
     private final XrelService xrelService;
     
@@ -44,19 +47,34 @@ public class RestClient {
         return new OkHttpClient.Builder().addInterceptor(new ResponseInterceptor());
     }
     
-    public RestClient(OkHttpClient.Builder httpClientBuilder) {
-        this(httpClientBuilder.build());
+    public static RestClient create() {
+        return create(null);
     }
     
-    public RestClient(OkHttpClient httpClient) {
-        this(new Retrofit.Builder().baseUrl(BASE_XREL_URL).addConverterFactory(JacksonConverterFactory.create()).client(httpClient).build());
+    public static RestClient create(Consumer<OkHttpClient.Builder> httpClientBuilderConsumer) {
+        final OkHttpClient.Builder httpClientBuilder = createHttpClientBuilder();
+        final ResponseInterceptor responseInterceptor = new ResponseInterceptor();
+        httpClientBuilder.addInterceptor(responseInterceptor);
+        if (httpClientBuilderConsumer != null) {
+            httpClientBuilderConsumer.accept(httpClientBuilder);
+        }
+        return new RestClient(httpClientBuilder.build(), responseInterceptor);
     }
     
-    public RestClient(Retrofit retrofit) {
-        this(retrofit, retrofit.create(XrelService.class));
+    private RestClient(OkHttpClient httpClient, ResponseInterceptor responseInterceptor) {
+        this(httpClient, responseInterceptor, new Retrofit.Builder().baseUrl(BASE_XREL_URL)
+                .addConverterFactory(JacksonConverterFactory.create())
+                .client(httpClient)
+                .build());
     }
     
-    public RestClient(Retrofit retrofit, XrelService xrelService) {
+    private RestClient(OkHttpClient httpClient, ResponseInterceptor responseInterceptor, Retrofit retrofit) {
+        this(httpClient, responseInterceptor, retrofit, retrofit.create(XrelService.class));
+    }
+    
+    private RestClient(OkHttpClient httpClient, ResponseInterceptor responseInterceptor, Retrofit retrofit, XrelService xrelService) {
+        this.httpClient = httpClient;
+        this.responseInterceptor = responseInterceptor;
         this.retrofit = retrofit;
         this.xrelService = xrelService;
     }
@@ -74,6 +92,14 @@ public class RestClient {
             url = url + "&scope=" + URLEncoder.encode(String.join(" ", scope.get()), StandardCharsets.UTF_8);
         }
         return url;
+    }
+    
+    public OkHttpClient getHttpClient() {
+        return httpClient;
+    }
+    
+    public ResponseInterceptor getResponseInterceptor() {
+        return responseInterceptor;
     }
     
     public Retrofit getRetrofit() {

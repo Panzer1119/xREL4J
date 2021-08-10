@@ -32,10 +32,10 @@ import java.nio.charset.StandardCharsets;
  */
 class ResponseInterceptor implements Interceptor {
     
-    private static int xRateLimitLimit = -1;
-    private static int xRateLimitRemaining = -1;
-    private static int xRateLimitReset = -1;
-    private static int responseCode = -1;
+    private int xRateLimitLimit = -1;
+    private int xRateLimitRemaining = -1;
+    private int xRateLimitReset = -1;
+    private int responseCode = -1;
     
     @Override
     public Response intercept(Chain chain) throws IOException {
@@ -88,7 +88,7 @@ class ResponseInterceptor implements Interceptor {
      *
      * @see <a href="https://www.xrel.to/wiki/2727/api-rate-limiting.html">API: Rate Limiting</a>
      */
-    public static int getXRateLimitLimit() {
+    public int getXRateLimitLimit() {
         return xRateLimitLimit;
     }
     
@@ -100,8 +100,8 @@ class ResponseInterceptor implements Interceptor {
      *
      * @see <a href="https://www.xrel.to/wiki/2727/api-rate-limiting.html">API: Rate Limiting</a>
      */
-    private static void setXRateLimitLimit(int xRateLimitLimit) {
-        ResponseInterceptor.xRateLimitLimit = xRateLimitLimit;
+    private void setXRateLimitLimit(int xRateLimitLimit) {
+        this.xRateLimitLimit = xRateLimitLimit;
     }
     
     /**
@@ -112,7 +112,7 @@ class ResponseInterceptor implements Interceptor {
      *
      * @see <a href="https://www.xrel.to/wiki/2727/api-rate-limiting.html">API: Rate Limiting</a>
      */
-    public static int getXRateLimitRemaining() {
+    public int getXRateLimitRemaining() {
         return xRateLimitRemaining;
     }
     
@@ -124,8 +124,8 @@ class ResponseInterceptor implements Interceptor {
      *
      * @see <a href="https://www.xrel.to/wiki/2727/api-rate-limiting.html">API: Rate Limiting</a>
      */
-    private static void setXRateLimitRemaining(int xRateLimitRemaining) {
-        ResponseInterceptor.xRateLimitRemaining = xRateLimitRemaining;
+    private void setXRateLimitRemaining(int xRateLimitRemaining) {
+        this.xRateLimitRemaining = xRateLimitRemaining;
     }
     
     /**
@@ -136,7 +136,7 @@ class ResponseInterceptor implements Interceptor {
      *
      * @see <a href="https://www.xrel.to/wiki/2727/api-rate-limiting.html">API: Rate Limiting</a>
      */
-    public static int getXRateLimitReset() {
+    public int getXRateLimitReset() {
         return xRateLimitReset;
     }
     
@@ -148,8 +148,8 @@ class ResponseInterceptor implements Interceptor {
      *
      * @see <a href="https://www.xrel.to/wiki/2727/api-rate-limiting.html">API: Rate Limiting</a>
      */
-    private static void setXRateLimitReset(int xRateLimitReset) {
-        ResponseInterceptor.xRateLimitReset = xRateLimitReset;
+    private void setXRateLimitReset(int xRateLimitReset) {
+        this.xRateLimitReset = xRateLimitReset;
     }
     
     /**
@@ -157,7 +157,7 @@ class ResponseInterceptor implements Interceptor {
      *
      * @return responseCode The response code
      */
-    public static int getResponseCode() {
+    public int getResponseCode() {
         return responseCode;
     }
     
@@ -166,8 +166,8 @@ class ResponseInterceptor implements Interceptor {
      *
      * @param responseCode The response code to set
      */
-    private static void setResponseCode(int responseCode) {
-        ResponseInterceptor.responseCode = responseCode;
+    private void setResponseCode(int responseCode) {
+        this.responseCode = responseCode;
     }
     
 }

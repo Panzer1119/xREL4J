@@ -359,7 +359,7 @@ public class Xrel {
      * @see <a href="https://www.xrel.to/wiki/2727/api-rate-limiting.html">API: Rate Limiting</a>
      */
     public int getXRateLimitLimit() {
-        return ResponseInterceptor.getXRateLimitLimit();
+        return restClient.getResponseInterceptor().getXRateLimitLimit();
     }
     
     /**
@@ -371,7 +371,7 @@ public class Xrel {
      * @see <a href="https://www.xrel.to/wiki/2727/api-rate-limiting.html">API: Rate Limiting</a>
      */
     public int getXRateLimitRemaining() {
-        return ResponseInterceptor.getXRateLimitRemaining();
+        return restClient.getResponseInterceptor().getXRateLimitRemaining();
     }
     
     /**
@@ -383,7 +383,7 @@ public class Xrel {
      * @see <a href="https://www.xrel.to/wiki/2727/api-rate-limiting.html">API: Rate Limiting</a>
      */
     public int getXRateLimitReset() {
-        return ResponseInterceptor.getXRateLimitReset();
+        return restClient.getResponseInterceptor().getXRateLimitReset();
     }
     
     /**
