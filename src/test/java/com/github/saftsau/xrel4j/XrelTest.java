@@ -11,9 +11,10 @@ import java.util.Base64;
 
 public class XrelTest {
     
+    private final Xrel xrel = new Xrel();
+    
     @Test
-    void test() {
-        final Xrel xrel = new Xrel();
+    void testRelease() {
         final Release release = xrel.getReleaseInfoId("839488661e8f92");
         Assertions.assertNotNull(release);
         Assertions.assertEquals(1576798455, release.getTime());
