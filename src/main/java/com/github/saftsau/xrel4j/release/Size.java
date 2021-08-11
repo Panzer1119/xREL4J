@@ -17,6 +17,10 @@
 
 package com.github.saftsau.xrel4j.release;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.github.saftsau.xrel4j.converters.SizeNumberToStringConverter;
+import com.github.saftsau.xrel4j.converters.StringToSizeNumberConverter;
 import com.github.saftsau.xrel4j.release.scene.Release;
 
 import java.io.Serializable;
@@ -25,7 +29,15 @@ import java.io.Serializable;
  * Class represents a size as used in {@link Release} objects.
  */
 public class Size implements Serializable {
+  
+  public static final int SIZE_EQUALS = -2;
+  public static final int SIZE_GREATER_THAN = -3;
+  public static final int SIZE_GREATER_THAN_OR_EQUALS = -4;
+  public static final int SIZE_LESS_THAN_OR_EQUALS = -5;
+  public static final int SIZE_LESS_THAN = -6;
 
+  @JsonSerialize(converter = SizeNumberToStringConverter.class)
+  @JsonDeserialize(converter = StringToSizeNumberConverter.class)
   private int number;
   private String unit;
 
