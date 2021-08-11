@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.2](https://github.com/Panzer1119/xREL4J/compare/v1.4.1...v1.4.2) (2021-08-11)
+
+
+### Bug Fixes
+
+* create SizeNumberToStringConverter.java and StringToSizeNumberConverter.java to properly serialize Size.java ([f0a1a11](https://github.com/Panzer1119/xREL4J/commit/f0a1a11bcccb14757cfd1bc28299c70411346080))
+
 ### [1.4.1](https://github.com/Panzer1119/xREL4J/compare/v1.4.0...v1.4.1) (2021-08-10)
 
 ## [1.4.0](https://github.com/Panzer1119/xREL4J/compare/v1.3.1...v1.4.0) (2021-08-10)
